@@ -56,6 +56,13 @@ Habla en español, claro y breve. La persona es profesional de la psicología: s
 
 La voz cuesta dinero: solo se genera con el guion ya aprobado.
 
+**Voz manual (la persona pone el audio):** si la persona prefiere grabarse o generar la voz por su cuenta
+(web de ElevenLabs, móvil, otra herramienta), no uses `voz.py`. Dale el texto exacto de `narracion.txt`, un párrafo por línea,
+y pídele que deje una pausa breve (medio segundo) entre párrafos. Indícale dónde guardar el archivo:
+`video/reels/<slug>/audio/voz.mp3` (o `.m4a`/`.wav`: `prep_audio.py` acepta cualquier formato que lea ffmpeg).
+Cuando confirme que está, escúchalo con `ffprobe` (duración) y sigue desde el punto 5. Si dijo algo distinto del guion,
+corrige `narracion.txt` para que coincida con lo que se oye, porque los subtítulos salen de ese texto.
+
 1. Revisa siglas, cifras y nombres propios del guion. Añade a `marca.json → pronunciacion` las que ElevenLabs pueda leer mal
    (los subtítulos siguen mostrando la forma escrita).
 2. Vista previa sin gasto: `python3 tools/voz.py <slug>` y di cuántos caracteres (≈ créditos) va a costar.
