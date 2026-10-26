@@ -27,7 +27,7 @@ await new Promise((r) => setTimeout(r, 2500));
 const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
 try {
   const page = await browser.newPage({ viewport: { width: 412, height: 915 }, deviceScaleFactor: 2 });
-  page.on('console', (m) => m.type() === 'error' && console.log('[navegador]', m.text()));
+  page.on('console', (m) => (m.type() === 'error' || m.text().startsWith('[progreso]')) && console.log('[navegador]', m.text()));
   page.on('pageerror', (e) => console.log('[error de página]', e.message));
   await page.goto(`http://localhost:${PORT}/?test`);
   await page.waitForFunction(() => window.__sms);
@@ -49,7 +49,7 @@ try {
   const info = await page.evaluate(async ({ res, aspect }) => {
     const s = window.__sms;
     const project = s.loveDemo(aspect);
-    const r = await s.exportProject(project, s.assets, { shortSide: res, audio: true, onProgress: (k) => (window.__k = k) });
+    const r = await s.exportProject(project, s.assets, { shortSide: res, audio: true, onProgress: (k, msg) => { const p = Math.floor(k * 20); if (p !== window.__p) { window.__p = p; console.log(`[progreso] ${Math.round(k * 100)} % ${msg}`); } } });
     const buf = new Uint8Array(await r.blob.arrayBuffer());
     let bin = '';
     for (let i = 0; i < buf.length; i += 0x8000) bin += String.fromCharCode(...buf.subarray(i, i + 0x8000));
