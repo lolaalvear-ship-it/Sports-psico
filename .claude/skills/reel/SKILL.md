@@ -16,7 +16,8 @@ Habla en español, claro y breve. La persona es profesional de la psicología: s
 
 ## 0 · Preparar
 
-1. Si `video/node_modules` no existe: `cd video && npm install`.
+1. Si `video/node_modules` no existe: `cd video && npm install`. Si `require('playwright')` falla: `npm install playwright && npx playwright install chromium`.
+   En Windows, usa `python` en lugar de `python3` en todos los comandos de esta skill.
 2. Si `video/marca.json` aún tiene `@tu_usuario` o `voice_id` vacío, pide esos datos antes del paso 3
    (no hace falta para empezar con las fuentes).
 3. Si la persona quiere retomar un reel, lee sus `FUENTES.md`, `GUION.md` y `timeline.json` para ver en qué paso está.

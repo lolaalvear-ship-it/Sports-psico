@@ -13,7 +13,8 @@ La skill `reel` (`.claude/skills/reel/SKILL.md`) te lleva por cuatro pasos y no 
 ### Qué necesitas
 
 - Node 18+ y Python 3 con `numpy`; `ffmpeg` en el PATH.
-- Playwright con Chromium: `npm i -g playwright && npx playwright install chromium` (si no lo tienes ya).
+- Playwright con Chromium, dentro de `video/`: `npm install playwright && npx playwright install chromium`.
+- En Windows, usa `python` donde los comandos dicen `python3`.
 - Cuenta de ElevenLabs. Crea `video/.env` con `ELEVENLABS_API_KEY=...` y pon tu `voice_id` en `video/marca.json`
   (`python3 tools/voz.py --voces` lista las de tu cuenta). Para usar los vídeos en redes necesitas un plan de pago de ElevenLabs.
 - Rellena `video/marca.json`: nombre, usuario, colores, frase de cierre, estilo de subtítulos y pronunciaciones.
