@@ -1,0 +1,62 @@
+{
+ "duration": 27,
+ "audio": null,
+ "showCaptions": false,
+ "scenes": [
+  {
+   "id": "corazon",
+   "start": 0,
+   "end": 3,
+   "camera": "none"
+  },
+  {
+   "id": "cerebro",
+   "start": 3,
+   "end": 6,
+   "camera": "none"
+  },
+  {
+   "id": "hueso",
+   "start": 6,
+   "end": 9,
+   "camera": "none"
+  },
+  {
+   "id": "ovulo",
+   "start": 9,
+   "end": 12,
+   "camera": "none"
+  },
+  {
+   "id": "boca",
+   "start": 12,
+   "end": 15,
+   "camera": "none"
+  },
+  {
+   "id": "mucosa",
+   "start": 15,
+   "end": 18,
+   "camera": "none"
+  },
+  {
+   "id": "pulmon",
+   "start": 18,
+   "end": 21,
+   "camera": "none"
+  },
+  {
+   "id": "sangre",
+   "start": 21,
+   "end": 24,
+   "camera": "none"
+  },
+  {
+   "id": "neurona",
+   "start": 24,
+   "end": 27,
+   "camera": "none"
+  }
+ ],
+ "captions": []
+}

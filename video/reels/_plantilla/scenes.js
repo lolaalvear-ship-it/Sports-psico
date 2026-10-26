@@ -5,73 +5,66 @@
 // Las aperturas alternativas se llaman <id>_A y <id>_B; se elige con ?open=B (render.mjs --open B)
 // o con "opening" en timeline.json. Los textos y cifras de esta plantilla son de EJEMPLO.
 import {
-  W, H, PAL, BRAND, seg, easeOut, mark, title, txt, cite, badge, backdrop, glow, bokehField, dust, label, start,
+  W, H, PAL, BRAND, seg, mark, title, txt, cite, badge, start,
 } from '/engine/core.js';
-import { bigNumber, bars, pulseLine, breathRing, stadium, chip, endCard } from '/engine/kit2d.js';
-import * as K3 from '/engine/kit3d.js';
+import { bigNumber, bars, pulseLine, chip, endCard } from '/engine/kit2d.js';
+import * as M from '/engine/kitmed.js';
 
 const SC = {};
 
-// Apertura A · estadio de noche con la pregunta
+// Apertura A · corazón que se acelera junto al deportista que corre
 SC.hook_A = (c, lt, d) => {
-  stadium(c, lt, { light: 0.6 + 0.4 * seg(lt, 0, 1.2) });
-  title(c, '¿POR QUÉ', W / 2, 560, lt, 0.1, d + 0.3, { size: 110, weight: 800, spacing: 6 });
-  title(c, 'FALLAMOS', W / 2, 700, lt, 0.4, d + 0.3, { size: 150, weight: 800, spacing: 8, color: BRAND.colores.acento, glowPx: 40, glowColor: '#ff7a00' });
-  title(c, 'CUANDO MÁS IMPORTA?', W / 2, 840, lt, 0.7, d + 0.3, { size: 76, weight: 800, spacing: 4 });
-  badge(c, 'EJEMPLO', PAL.green, W / 2, 1650, seg(lt, 0.2, 0.6));
+  M.shardsBg(c, lt, { color: '#5a1420', shard: '#ffd0c0' });
+  M.heart(c, W / 2, 900, 620, { color: '#d3303d', beat: M.heartBeat(lt, 70 + 70 * seg(lt, 0.5, 3.5)) });
+  M.person(c, W / 2, 1470, 400, { pose: 'correr', lt });
+  title(c, '¿POR QUÉ FALLAMOS', W / 2, 330, lt, 0.1, d + 0.3, { size: 70, weight: 800, spacing: 2 });
+  title(c, 'CUANDO MÁS IMPORTA?', W / 2, 440, lt, 0.4, d + 0.3, { size: 70, weight: 800, spacing: 2, color: BRAND.colores.acento });
+  badge(c, 'EJEMPLO', PAL.green, W / 2, 1690, seg(lt, 0.2, 0.6));
 };
 
-// Apertura B · el pulso se dispara
+// Apertura B · pantalla partida: calma frente a presión
 SC.hook_B = (c, lt, d) => {
-  backdrop(c, '#14040a', '#050106');
-  glow(c, W / 2, 960, 700, '#7a0a24', 0.5);
-  pulseLine(c, lt, { y: 1000, bpm: t => 70 + 110 * seg(t, 0.3, 3.5), amp: 170 });
-  title(c, 'Último penalti.', W / 2, 520, lt, 0.1, d + 0.3, { size: 92, weight: 800 });
-  title(c, 'Tu corazón ya lo sabe.', W / 2, 640, lt, 0.9, d + 0.3, { size: 64, weight: 600, italic: true, color: '#ffb3c0' });
-  badge(c, 'EJEMPLO', PAL.green, W / 2, 1650, seg(lt, 0.2, 0.6));
+  M.splitScreen(c,
+    k => { M.cellsBg(k, lt, { color: '#123a5e', cell: '#7ad0e0' }); M.heart(k, W / 2, 860, 520, { color: '#2fb35a', beat: M.heartBeat(lt, 60) }); },
+    k => { M.cellsBg(k, lt, { color: '#5a1420', cell: '#ff8a9a' }); M.heart(k, W / 2, 860, 520, { color: '#d3303d', beat: M.heartBeat(lt, 150) }); });
+  pulseLine(c, lt, { y: 1300, bpm: 110, amp: 90, showBpm: false, alpha: 0.8 });
+  title(c, 'Entrenamiento… o final.', W / 2, 330, lt, 0.1, d + 0.3, { size: 76, weight: 800 });
+  badge(c, 'EJEMPLO', PAL.green, W / 2, 1690, seg(lt, 0.2, 0.6));
 };
 
-// Dato grande que cuenta
+// Dato grande que cuenta, sobre torrente sanguíneo
 SC.dato = (c, lt, d) => {
-  backdrop(c);
-  bokehField(c, 4, lt, 30, ['#1a3a7a', '#2a5ab0'], { alpha: 0.35 });
+  M.bloodBg(c, lt, { speed: 0.6 });
+  c.fillStyle = 'rgba(10,2,6,0.6)'; c.fillRect(0, 0, W, H);
   bigNumber(c, 42, lt, 0.3, { suffix: '%', y: 860 });
-  title(c, 'de los deportistas (dato de ejemplo)', W / 2, 1060, lt, 0.8, d + 0.3, { size: 46, weight: 600, color: '#c9d4ea' });
+  title(c, 'de los deportistas (dato de ejemplo)', W / 2, 1060, lt, 0.8, d + 0.3, { size: 46, weight: 600, color: '#ffe0e6' });
   cite(c, 'Autor et al. · Revista Año', lt, 0.6, d + 0.3, 1440);
 };
 
 // Comparación entre grupos; las barras arrancan con la palabra «comparación»
 SC.estudio = (c, lt, d, sc) => {
   const C = mark(sc, 'comparacion', 1.2);
-  backdrop(c);
+  M.cellsBg(c, lt, { color: '#1c2a5a', cell: '#7fa0e0', n: 40 });
   title(c, 'EL ESTUDIO', W / 2, 330, lt, 0.1, d + 0.3, { size: 80, weight: 800, spacing: 6, color: BRAND.colores.primario });
   bars(c, [{ label: 'Grupo A', value: 38 }, { label: 'Grupo B', value: 71 }], lt, C, { x: 240, w: 600, y: 1300, h: 600, max: 100 });
   cite(c, 'Autor et al. · Revista Año', lt, 0.4, d + 0.3, 1520);
 };
 
-// Cerebro 3D con una región resaltada y su etiqueta
-const amyGlow = K3.regionGlow(K3.REG.amyR, 0xff3a4a);
+// Cerebro ilustrado con una región que se enciende
 SC.cerebro = (c, lt, d) => {
-  K3.brainBase();
-  const on = seg(lt, 0.5, 1.2), pulse = 0.8 + 0.2 * Math.sin(lt * 6);
-  K3.setHL(0, K3.REG.amyR, 0xff3a4a, 0.2, on * 4 * pulse);
-  K3.setHL(1, K3.REG.dlpfcR, 0x5fd3ff, 0.28, on * 2.5);
-  amyGlow.material.opacity = on * pulse;
-  K3.orbitCam(K3.brainCam, 0.5 + lt * 0.12, 4.4, 0.5, K3.ORIGIN);
-  K3.brainRoot.updateMatrixWorld();
-  K3.render3D(c, K3.brainScene, K3.brainCam);
-  const [px, py] = K3.project(K3.REG.amyR, K3.brainCam, K3.brainRoot);
-  label(c, px, py, 1350, 'AMÍGDALA', 'alarma ante la amenaza', '#ff6a7a', seg(lt, 1.0, 1.6));
+  M.cellsBg(c, lt, { color: '#1c2a5a', cell: '#7fa0e0' });
+  M.brain(c, W / 2, 940, 920, { hl: { prefrontal: seg(lt, 0.6, 1.4), temporal: 0.7 * seg(lt, 1.6, 2.4) }, lt });
   title(c, 'BAJO PRESIÓN', W / 2, 330, lt, 0.1, d + 0.3, { size: 84, weight: 800, spacing: 6 });
+  chip(c, 'A', 'Prefrontal: control de la atención', W / 2, 1400, seg(lt, 1.0, 1.4), { w: 820 });
 };
 
-// Aplicación práctica
+// Aplicación práctica: respiración lenta
 SC.practica = (c, lt, d) => {
-  backdrop(c, '#03101a', '#02060a');
-  dust(c, 8, lt, 40, '#5fd3ff', 0.4);
-  breathRing(c, lt, { y: 980, period: 6 });
+  M.cellsBg(c, lt, { color: '#14324a', cell: '#7ad0e0' });
+  const breath = 0.5 - 0.5 * Math.cos(lt / 6 * Math.PI * 2);
+  M.lungs(c, W / 2, 980, 900, { breath });
   title(c, 'QUÉ PUEDES HACER', W / 2, 330, lt, 0.1, d + 0.3, { size: 76, weight: 800, spacing: 4, color: BRAND.colores.primario });
-  chip(c, 'A', 'Respiración lenta antes de ejecutar', W / 2, 1460, seg(lt, 1.0, 1.4), { w: 820 });
+  txt(c, breath > 0.5 ? 'inhala' : 'exhala', W / 2, 1520, { size: 60, weight: 700, alpha: seg(lt, 0.5, 1) });
 };
 
 SC.cierre = (c, lt, d) => endCard(c, lt, d);

@@ -25,6 +25,7 @@ La skill `reel` (`.claude/skills/reel/SKILL.md`) te lleva por cuatro pasos y no 
 | `video/engine/core.js` | Utilidades, tipografía animada, citas, siluetas, grano/viñeta, cámara y composición con fundidos |
 | `video/engine/captions.js` | Subtítulos palabra a palabra en 4 estilos: `karaoke`, `caja`, `pop`, `linea` |
 | `video/engine/kit2d.js` | Cifra que cuenta, barras comparativas, electrocardiograma, respiración, cronómetro, estadio, diana, etiqueta, cierre de marca |
+| `video/engine/kitmed.js` | **Ilustración médica**: fondos de mucosa, sangre, células y fragmentos, boca, pantalla partida; corazón, cerebro, pulmones, estómago, riñón, hueso con fractura, óvulo, glóbulos rojos, neurona, fármacos, jeringa y personaje animado. Galería en `video/reels/_galeria/` |
 | `video/engine/kit3d.js` | Cerebro 3D con regiones resaltables (amígdala, prefrontal, corteza motora, cerebelo…), neuronas y sinapsis |
 | `video/reels/_plantilla/` | Reel de ejemplo con todas las piezas; `tools/nuevo_reel.py` lo copia para cada reel nuevo |
 | `video/reels/<slug>/` | `FUENTES.md`, `GUION.md`, `narracion.txt`, `scenes.js`, `timeline.json`, `POST.md`, `audio/`, `output/` |

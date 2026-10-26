@@ -69,8 +69,17 @@ La voz cuesta dinero: solo se genera con el guion ya aprobado.
 
 1. Reescribe `scenes.js` del reel para este guion (la plantilla es solo un ejemplo):
    - una función `SC.<id>` por cada escena de `anchors`; la primera en dos versiones, `SC.<id>_A` y `SC.<id>_B`;
-   - usa los kits: `kit2d.js` (bigNumber, bars, pulseLine, breathRing, stopwatch, stadium, target, chip, endCard),
-     `kit3d.js` (cerebro con regiones `REG.*`, neuronas, sinapsis) y `core.js` (title, txt, wrap, cite, badge, bokeh, siluetas…);
+   - **estilo por defecto: lámina médica ilustrada** con `kitmed.js` (`import * as M from '/engine/kitmed.js'`).
+     Cada escena empieza con un fondo médico y tiene al menos una pieza dibujada que ilustre lo narrado:
+     fondos `tissueBg`, `bloodBg`, `cellsBg`, `shardsBg`, `mouthBg`, `splitScreen` (comparaciones lado a lado);
+     piezas `heart`, `brain` (lóbulos resaltables), `lungs`, `stomach`, `kidney`, `bone` (fractura, hematoma), `ovum`, `rbc`,
+     `neuron`, `pill`, `syringe` y `person` (de pie, correr, tumbado, caer, sentado);
+     ve ejemplos de cada una en `reels/_galeria/scenes.js` y la combinación completa en `reels/_plantilla/scenes.js`;
+   - complementos: `kit2d.js` (bigNumber, bars, pulseLine, breathRing, stopwatch, target, chip, endCard),
+     `kit3d.js` (cerebro 3D de puntos, neuronas, sinapsis: estilo «neón», úsalo solo si la persona lo pide) y
+     `core.js` (title, txt, wrap, cite, badge, bokeh, siluetas…);
+   - si el tema necesita un órgano o elemento que no existe en el kit, dibújalo en `kitmed.js` con las mismas técnicas
+     (`volume` para dar volumen y textura, `tube` para vasos y conductos, `ball` para esferas) y añádelo a la galería;
    - en pantalla, cada dato lleva su `cite('Autor et al. · Revista Año', …)`; solo datos de `FUENTES.md`;
    - usa `mark(sc, '<clave>', defecto)` para que lo visual caiga en la palabra;
    - termina con `start(SC, { noCaps: [...] })` listando las escenas cuyo texto grande ya dice lo narrado.
