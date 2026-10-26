@@ -22,6 +22,19 @@ node render.mjs                         # video completo
 node render.mjs --stills 1,15,30        # fotogramas de prueba en PNG
 ```
 
+## Versión final con narración
+
+- `video/output/short_final.mp4`: video con la voz, escenas sincronizadas y subtítulos dinámicos (≈60,6 s).
+- `video/output/short_final.srt`: subtítulos por frases, para subirlos como subtítulos nativos (opcional).
+- `video/audio/voz.mp3`: narración original (ElevenLabs, 66,6 s).
+
+La narración original duraba 66,6 s. Para dejarla en unos 60 s sin que suene acelerada:
+1. Las pausas de más de 0,45 s se recortaron a 0,45 s, de 66,6 a 63,4 s.
+2. Se aplicó `atempo=1.06`, que acelera sin cambiar el tono.
+3. Se normalizó el volumen a −14 LUFS, el estándar de redes (`loudnorm`), y quedó en 59,8 s.
+
+Los subtítulos se ocultan en el gancho, en «No es debilidad» y en el cierre, porque ahí la tipografía grande ya dice la frase narrada.
+
 ## Fase 2: incorporar la narración
 
 1. Genera la voz con el texto de `docs/GUION.md`. Para una mejor sincronía, deja una pausa breve (unos 0,3 s) entre párrafos.

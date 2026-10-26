@@ -25,7 +25,9 @@ ANCHORS = [
 ]
 # marcas: (escena, clave, palabra) -> tiempo local de esa palabra dentro de la escena
 MARKS = [("phone", "duda", "duda"), ("window", "aun", "aun"), ("neurons", "tambien", "también"),
-         ("rebound", "volvia", "volvía"), ("dawn", "cerebro", "Es un cerebro")]
+         ("rebound", "volvia", "volvía"), ("dawn", "cerebro", "Es un cerebro"),
+         ("pathway", "deseo", "deseo"), ("pathway", "adiccion", "adicción"),
+         ("release", "l1", "Y entenderlo"), ("release", "l2", "el primer paso"), ("release", "l3", "para soltar")]
 LEAD = 0.2   # la imagen entra un poco antes que la palabra
 TAIL = 1.0   # cola tras la última palabra
 
@@ -66,7 +68,8 @@ def main():
     words = []  # (texto, párrafo)
     for pi, p in enumerate(paras):
         words += [(w, pi) for w in p.split()]
-    weight = lambda w: len(norm(w)) + 1.5
+    SPOKEN = {"2010": "dosmildiez", "2011": "dosmilonce"}  # los números se pronuncian más largos
+    weight = lambda w: len(SPOKEN.get(norm(w), norm(w))) + 1.5
     pw = [sum(weight(w) for w, pi in words if pi == k) for k in range(len(paras))]
     total = sum(pw)
 
@@ -133,19 +136,45 @@ def main():
         ws = [w for w, pi in words if pi == k]
         wt = [weight(w) for w in ws]
         S = sum(wt)
-
-        def at(x):
-            for s, e in iv:
-                if x <= e - s + 1e-9:
-                    return s + x
-                x -= e - s
-            return t1
-        acc = 0
-        for w, ww in zip(ws, wt):
-            s = at(tot * acc / S)
-            acc += ww
-            e = at(tot * acc / S - 1e-6)
-            timed.append({"w": w, "s": round(s, 3), "e": round(e, 3), "p": k})
+        # cada pausa interna se asigna (en orden) al corte entre palabras que mejor encaja,
+        # preferentemente tras una palabra con puntuación
+        cum = [sum(wt[:j + 1]) / S for j in range(len(ws) - 1)]
+        gfrac, acc_t = [], 0
+        for s, e in iv[:-1]:
+            acc_t += e - s
+            gfrac.append(acc_t / tot)
+        NG, NB = len(gfrac), len(cum)
+        cuts = []
+        if NG and NG <= NB:
+            pen = [0 if re.search(r"[,.:;?!…»]$", ws[j]) else 0.01 for j in range(NB)]
+            C = [[INF] * NB for _ in range(NG)]
+            Bk = [[-1] * NB for _ in range(NG)]
+            for j in range(NB):
+                C[0][j] = (cum[j] - gfrac[0]) ** 2 + pen[j]
+            for q in range(1, NG):
+                for j in range(q, NB):
+                    h = min(range(q - 1, j), key=lambda x: C[q - 1][x])
+                    C[q][j] = C[q - 1][h] + (cum[j] - gfrac[q]) ** 2 + pen[j]
+                    Bk[q][j] = h
+            j = min(range(NG - 1, NB), key=lambda x: C[NG - 1][x])
+            cuts = [0] * NG
+            for q in range(NG - 1, -1, -1):
+                cuts[q] = j
+                j = Bk[q][j]
+        else:
+            iv = [(iv[0][0], iv[-1][1])] if NG else iv
+        groups, prev = [], 0
+        for cj in cuts + [len(ws) - 1]:
+            groups.append(range(prev, cj + 1))
+            prev = cj + 1
+        for (s0, e0), grp in zip(iv, groups):
+            gs = sum(wt[j] for j in grp)
+            acc = 0
+            for j in grp:
+                s = s0 + (e0 - s0) * acc / gs
+                acc += wt[j]
+                e = s0 + (e0 - s0) * acc / gs
+                timed.append({"w": ws[j], "s": round(s, 3), "e": round(e, 3), "p": k})
 
     # 3) escenas
     flat = [norm(t["w"]) for t in timed]

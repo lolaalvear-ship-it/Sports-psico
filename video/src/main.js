@@ -890,12 +890,13 @@ SC.vta = (c, lt, d) => {
   orbitCam(brainCam, 1.9 + lt * 0.12, lerp(5.0, 2.3, k), lerp(0.7, 0.25, k), tgt);
   render3D(c, brainScene, brainCam);
   const [px, py] = project(REG.vta, brainCam, brain.pts);
-  label(c, px, py, py + 330, 'Área tegmental ventral', 'origen de neuronas de dopamina', PAL.gold, seg(lt, 1.6, 2.1) * (1 - seg(lt, d - 0.2, d + 0.2)));
+  label(c, px, py, Math.max(py - 330, 690), 'Área tegmental ventral', 'origen de neuronas de dopamina', PAL.gold, seg(lt, 1.6, 2.1) * (1 - seg(lt, d - 0.2, d + 0.2)));
   title(c, 'SISTEMA DE RECOMPENSA', W / 2, 330, lt, 0.3, d + 0.3, { size: 66, weight: 800, spacing: 4, color: PAL.gold, glowPx: 26, glowColor: '#ff7a1a' });
 };
 
 // 6 · Vía mesolímbica: ATV → estriado ventral
-SC.pathway = (c, lt, d) => {
+SC.pathway = (c, lt, d, sc0) => {
+  const wordT = [0.3, mark(sc0, 'deseo', 1.5), mark(sc0, 'adiccion', 2.7)];
   brainBase();
   const u = brain.mat.uniforms;
   u.uAlpha.value = 0.55;
@@ -912,10 +913,10 @@ SC.pathway = (c, lt, d) => {
   const [ax, ay] = project(REG.nacR, brainCam, brain.pts);
   const [bx, by] = project(REG.nacL, brainCam, brain.pts);
   const right = ax > bx ? [ax, ay] : [bx, by];
-  label(c, right[0], right[1], Math.max(right[1] + 300, 1150), 'Estriado ventral', 'recompensa y motivación', '#ff9f45', seg(lt, 1.2, 1.7) * (1 - seg(lt, d - 0.2, d + 0.2)));
+  label(c, right[0], right[1], Math.max(right[1] - 260, 760), 'Estriado ventral', 'recompensa y motivación', '#ff9f45', seg(lt, 1.2, 1.7) * (1 - seg(lt, d - 0.2, d + 0.2)));
   const words = ['RECOMPENSA', 'DESEO', 'ADICCIÓN'];
   words.forEach((w, i) => {
-    const t0 = 0.3 + i * 1.2;
+    const t0 = wordT[i];
     title(c, w, W / 2, 330 + i * 92, lt, t0, d + 0.3, { size: 72, weight: 800, spacing: 6, color: i === 2 ? PAL.rose : PAL.white, glowPx: 24, glowColor: i === 2 ? '#ff1f5a' : '#ff8a2a' });
   });
 };
@@ -985,9 +986,9 @@ SC.cards = (c, lt, d) => {
   bokehField(c, 61, lt, 40, ['#ff5a8a', '#8a6bff', '#ffb36b'], { rMin: 30, rMax: 120, alpha: 0.35 });
   c.restore();
   const cards = [
-    { t: 'Le gustas mucho', y: 640 },
-    { t: 'Le gustas lo normal', y: 880 },
-    { t: '¿Le gustas? No se sabe', y: 1120, q: true },
+    { t: 'Le gustas mucho', y: 560 },
+    { t: 'Le gustas lo normal', y: 775 },
+    { t: '¿Le gustas? No se sabe', y: 990, q: true },
   ];
   const hi = seg(lt, 1.7, 2.2);
   cards.forEach((cd, i) => {
@@ -1016,7 +1017,7 @@ SC.cards = (c, lt, d) => {
   });
   const ma = seg(lt, 2.3, 2.7);
   if (ma > 0) {
-    txt(c, '↑ MÁS ATRACCIÓN', W / 2, 1385, { size: 58, weight: 800, color: PAL.gold, alpha: ma, glowPx: 26, glowColor: '#ff7a1a', spacing: 3 });
+    txt(c, '↑ MÁS ATRACCIÓN', W / 2, 1230, { size: 58, weight: 800, color: PAL.gold, alpha: ma, glowPx: 26, glowColor: '#ff7a1a', spacing: 3 });
   }
   title(c, 'ESTUDIO DE 2011', W / 2, 330, lt, 0.1, d + 0.3, { size: 70, weight: 800, spacing: 6 });
   title(c, 'la duda aumentó la atracción', W / 2, 415, lt, 0.45, d + 0.3, { size: 50, weight: 600, italic: true, color: '#ff9fbf' });
@@ -1045,8 +1046,8 @@ SC.thoughts = (c, lt, d) => {
   glow(c, cx + 120, cy - 60, 520, '#5a3cff', 0.35 * intensity);
   rimSilhouette(c, PROFILE, hx, hy, s, '#b9a4ff', 12, -8, '#030209', 12);
   // palabras que orbitan
-  const words = [['¿le gusto?', 760, 560], ['¿y si…?', 250, 640], ['¿me escribirá?', 700, 1420], ['quizás…', 860, 980],
-    ['¿por qué no responde?', 540, 1540], ['¿qué hice mal?', 300, 1300], ['¿y si mañana sí?', 640, 760]];
+  const words = [['¿le gusto?', 760, 560], ['¿y si…?', 250, 640], ['¿me escribirá?', 700, 1530], ['quizás…', 860, 980],
+    ['¿por qué no responde?', 560, 1610], ['¿qué hice mal?', 300, 1180], ['¿y si mañana sí?', 640, 760]];
   words.forEach(([w, wx, wy], i) => {
     const t0 = i * 0.42;
     const a = seg(lt, t0, t0 + 0.4) * (1 - seg(lt, t0 + 2.4, t0 + 2.9));
@@ -1148,7 +1149,7 @@ SC.pain = (c, lt, d) => {
   c.stroke(); c.restore();
   title(c, 'EL RECHAZO DUELE', W / 2, 330, lt, 0.2, d + 0.3, { size: 78, weight: 800, spacing: 4, color: '#ff8a8a', glowPx: 30, glowColor: '#ff1f3a' });
   title(c, 'regiones que se solapan con el dolor físico', W / 2, 415, lt, 0.6, d + 0.3, { size: 40, weight: 600, family: 'Inter' });
-  cite(c, 'Kross et al. · PNAS 2011', lt, 0.8, d + 0.3, 1400);
+  cite(c, 'Kross et al. · PNAS 2011', lt, 0.8, d + 0.3, 1450);
 };
 
 // 14 · Amanecer: calma
@@ -1181,7 +1182,8 @@ SC.dawn = (c, lt, d, sc0) => {
 };
 
 // 15 · Soltar: «quizás» se disuelve en el cerebro en calma
-SC.release = (c, lt, d) => {
+SC.release = (c, lt, d, sc0) => {
+  const L1 = mark(sc0, 'l1', 1.6), L2 = mark(sc0, 'l2', 1.9), L3 = mark(sc0, 'l3', 2.3);
   brainBase();
   const u = brain.mat.uniforms;
   u.uBase.value.setRGB(0.15, 0.45, 0.95); u.uAlpha.value = 1;
@@ -1198,19 +1200,23 @@ SC.release = (c, lt, d) => {
     const col = k < 0.5 ? PAL.gold : PAL.cyan;
     glow(c, x, y, 6 + 4 * (1 - k), col, (1 - k) * 0.9 + 0.08);
   }
-  title(c, 'Entenderlo', W / 2, 1160, lt, 1.6, d + 1, { size: 64, weight: 700 });
-  title(c, 'es el primer paso', W / 2, 1245, lt, 1.9, d + 1, { size: 64, weight: 700 });
-  title(c, 'PARA SOLTAR.', W / 2, 1345, lt, 2.3, d + 1, { size: 86, weight: 800, spacing: 6, color: PAL.cyan, glowPx: 34, glowColor: '#0a7cff' });
+  title(c, 'Entenderlo', W / 2, 1160, lt, L1, d + 1, { size: 64, weight: 700 });
+  title(c, 'es el primer paso', W / 2, 1245, lt, L2, d + 1, { size: 64, weight: 700 });
+  title(c, 'PARA SOLTAR.', W / 2, 1345, lt, L3, d + 1, { size: 86, weight: 800, spacing: 6, color: PAL.cyan, glowPx: 34, glowColor: '#0a7cff' });
   const fade = seg(lt, d - 0.35, d);
   if (fade > 0) { c.fillStyle = `rgba(0,0,0,${fade})`; c.fillRect(0, 0, W, H); }
 };
 
 // ---------------------------------------------------------------- subtítulos dinámicos (para la fase con voz)
 let CAPTIONS = [];
+// escenas cuya tipografía grande ya dice la frase narrada
+const NO_CAPS = new Set(['phone', 'dawn', 'release']);
 function drawCaptions(c, t) {
   // cada entrada: { start, end, words: [{w, s, e}] } — se resalta la palabra activa
   const cap = CAPTIONS.find(k => t >= k.start && t < k.end);
   if (!cap) return;
+  const sc = TL.scenes.find(k => t >= k.start && t < k.end);
+  if (sc && NO_CAPS.has(sc.id)) return;
   const a = inOut(t, cap.start, cap.end, 0.08, 0.08);
   c.save(); c.globalAlpha = a;
   c.font = '800 62px "Inter Display"'; c.letterSpacing = '1px';
@@ -1220,7 +1226,7 @@ function drawCaptions(c, t) {
     if (lw + ww > 900 && lines[lines.length - 1].length) { lines.push([]); lw = 0; }
     lines[lines.length - 1].push({ ...w, ww }); lw += ww;
   }
-  const y0 = 1210 - (lines.length - 1) * 40;
+  const y0 = 1330 - (lines.length - 1) * 40;
   lines.forEach((ln, li) => {
     const tw = ln.reduce((s, w) => s + w.ww, 0);
     let x = W / 2 - tw / 2;

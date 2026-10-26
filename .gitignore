@@ -4,3 +4,4 @@ video/output/*.jpg
 video/output/render.log
 video/output/master_*.mp4
 video/output/*.png
+video/audio/*.wav
