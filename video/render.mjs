@@ -4,6 +4,7 @@
 //   node render.mjs --stills 0.5,12,30    -> PNG de prueba en output/stills/
 //   node render.mjs --from 10 --to 20     -> renderiza solo un tramo (pruebas)
 //   node render.mjs --audio voz.mp3 --out output/final.mp4   -> mezcla con la narración
+//   node render.mjs --src src-recuerdos ...                   -> otro proyecto (carpeta con index.html, main.js y timeline.json)
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -22,6 +23,7 @@ const stills = opt('stills');
 const from = parseFloat(opt('from', '0'));
 const audio = opt('audio');
 const out = opt('out', path.join(ROOT, 'output', 'short_sin_narracion.mp4'));
+const SRC = opt('src', 'src');
 
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json' };
 const server = http.createServer((req, res) => {
@@ -29,7 +31,7 @@ const server = http.createServer((req, res) => {
   if (p === '/') p = '/index.html';
   const file = p.startsWith('/three/')
     ? path.join(ROOT, 'node_modules/three/build', p.slice(7))
-    : path.join(ROOT, 'src', p);
+    : path.join(ROOT, SRC, p);
   fs.readFile(file, (err, buf) => {
     if (err) { res.writeHead(404); res.end(); return; }
     res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });

@@ -1,0 +1,18 @@
+{
+  "text": "narracion_recuerdos.txt",
+  "out": "src-recuerdos/timeline.json",
+  "anchors": [
+    ["hook", null], ["alarm", "Cuando algo"], ["amyg", "se activa"], ["hormones", "Con hormonas"],
+    ["engrave", "a grabar"], ["pill", "En 1994"], ["bars", "debilitó"], ["tunnel", "Las emociones"],
+    ["sleep", "Y al dormir"], ["sharp", "Pero nítido"], ["chart", "tras el"], ["affect", "Y hay una"],
+    ["dawn", "Tu cerebro"], ["calm", "Guarda lo que"]
+  ],
+  "marks": [
+    ["hook", "sufrir", "recuerdas con detalle"], ["amyg", "amigdala", "la amígdala"],
+    ["hormones", "hipocampo", "ayuda al hipocampo"], ["bars", "neutra", "pero no el de la neutra"],
+    ["tunnel", "arma", "recuerdas el arma"], ["tunnel", "calle", "pero no la calle"],
+    ["chart", "mantuvo", "se mantuvo"], ["chart", "caia", "mientras su exactitud"],
+    ["affect", "dolor", "el dolor de"], ["affect", "alegria", "antes que la alegría"],
+    ["calm", "suavizarlo", "y con el tiempo"]
+  ]
+}

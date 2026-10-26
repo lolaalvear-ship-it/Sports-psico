@@ -8,7 +8,8 @@ Como el texto exacto de la narración es conocido (narracion.txt, un párrafo po
      respetando las pausas internas (comas, puntos suspensivos).
 Escribe src/timeline.json con escenas re-temporizadas, marcas de palabras clave y subtítulos.
 
-Uso:  python3 tools/sync.py voz.mp3 [--noise -35] [--min-sil 0.18]
+Uso:  python3 tools/sync.py voz.mp3 [--config projects/x.json] [--noise -35] [--min-sil 0.18]
+      Sin --config usa el proyecto del primer Short (narracion.txt -> src/timeline.json).
 """
 import json, re, subprocess, sys, unicodedata, argparse
 from pathlib import Path
@@ -56,7 +57,13 @@ def main():
     ap.add_argument("audio")
     ap.add_argument("--noise", type=float, default=-35)
     ap.add_argument("--min-sil", type=float, default=0.18)
+    ap.add_argument("--config", help="JSON con text, out, anchors y marks de otro proyecto")
     a = ap.parse_args()
+    text_path, out_path, anchors, marks = ROOT / "narracion.txt", ROOT / "src" / "timeline.json", ANCHORS, MARKS
+    if a.config:
+        cfg = json.loads(Path(a.config).read_text(encoding="utf-8"))
+        text_path, out_path = ROOT / cfg["text"], ROOT / cfg["out"]
+        anchors, marks = [tuple(x) for x in cfg["anchors"]], [tuple(x) for x in cfg.get("marks", [])]
 
     dur = duration(a.audio)
     sil = silences(a.audio, a.noise, a.min_sil)
@@ -64,11 +71,11 @@ def main():
     speech_end = sil[-1][0] if sil and sil[-1][1] >= dur - 0.05 else dur
     gaps = [(s, e) for s, e in sil if s > speech_start + 0.05 and e < speech_end - 0.05]
 
-    paras = [p.strip() for p in (ROOT / "narracion.txt").read_text(encoding="utf-8").splitlines() if p.strip()]
+    paras = [p.strip() for p in text_path.read_text(encoding="utf-8").splitlines() if p.strip()]
     words = []  # (texto, párrafo)
     for pi, p in enumerate(paras):
         words += [(w, pi) for w in p.split()]
-    SPOKEN = {"2010": "dosmildiez", "2011": "dosmilonce"}  # los números se pronuncian más largos
+    SPOKEN = {"2010": "dosmildiez", "2011": "dosmilonce", "1994": "milnovecientosnoventaycuatro", "11s": "onceese"}  # los números se pronuncian más largos
     weight = lambda w: len(SPOKEN.get(norm(w), norm(w))) + 1.5
     pw = [sum(weight(w) for w, pi in words if pi == k) for k in range(len(paras))]
     total = sum(pw)
@@ -184,10 +191,10 @@ def main():
         for i in range(frm, len(flat) - len(toks) + 1):
             if flat[i:i + len(toks)] == toks:
                 return i
-        sys.exit(f"No encontré «{phrase}» en narracion.txt")
+        sys.exit(f"No encontré «{phrase}» en {text_path.name}")
 
     scenes, idx = [], 0
-    for sid, phrase in ANCHORS:
+    for sid, phrase in anchors:
         if phrase is None:
             scenes.append({"id": sid, "start": 0.0})
             continue
@@ -197,7 +204,7 @@ def main():
     for i, sc in enumerate(scenes):
         sc["end"] = scenes[i + 1]["start"] if i + 1 < len(scenes) else final
     byid = {s["id"]: s for s in scenes}
-    for sid, key, phrase in MARKS:
+    for sid, key, phrase in marks:
         sc = byid[sid]
         start_idx = find(phrase, 0)
         byid[sid].setdefault("marks", {})[key] = round(timed[start_idx]["s"] - sc["start"], 3)
@@ -216,10 +223,10 @@ def main():
     for i in range(len(caps) - 1):
         caps[i]["end"] = min(caps[i]["end"], caps[i + 1]["start"])
 
-    prev = ROOT / "src" / "timeline.json"
+    prev = out_path
     show = json.loads(prev.read_text(encoding="utf-8")).get("showCaptions", True) if prev.exists() else True
     tl = {"duration": final, "audio": Path(a.audio).name, "showCaptions": show, "scenes": scenes, "captions": caps}
-    (ROOT / "src" / "timeline.json").write_text(json.dumps(tl, ensure_ascii=False, indent=1), encoding="utf-8")
+    out_path.write_text(json.dumps(tl, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"Audio {dur:.2f}s · habla {speech_start:.2f}–{speech_end:.2f}s · {len(gaps)} pausas · video {final:.2f}s")
     for sc in scenes:
         print(f"  {sc['id']:<9} {sc['start']:6.2f} → {sc['end']:6.2f}  ({sc['end'] - sc['start']:.2f}s)", sc.get("marks", ""))

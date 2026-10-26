@@ -45,3 +45,22 @@ node render.mjs --audio voz.mp3 --out output/short_final.mp4
 ```
 
 `sync.py` no usa reconocimiento de voz. Detecta las pausas con ffmpeg y, como el texto es conocido, asigna cada párrafo y cada palabra a su tramo. Así cada escena empieza con la frase que ilustra, y los subtítulos aparecen en bloques de hasta 3 palabras, con la palabra activa resaltada.
+
+---
+
+# Short 2 · «¿Por qué recuerdas con detalle lo que te hizo sufrir?»
+
+| Archivo | Contenido |
+|---|---|
+| `docs/tema2-recuerdos/GUION.md` | Texto de la narración y plan de escenas |
+| `docs/tema2-recuerdos/INVESTIGACION.md` | Estudios usados (McGaugh, Cahill, Kensinger, Payne, Talarico & Rubin, Walker) y sus límites |
+| `video/output/short_recuerdos_final.mp4` | **Video final con narración** (sin subtítulos) |
+| `video/src-recuerdos/` | Escenas del segundo Short (mismo motor: amígdala, hipocampo, sinapsis bloqueable…) |
+| `video/projects/recuerdos.json` | Anclas de escena y marcas de palabras para `sync.py` |
+
+```bash
+python3 tools/sync.py audio/voz_recuerdos_final.wav --config projects/recuerdos.json
+node render.mjs --src src-recuerdos --audio audio/voz_recuerdos_final.wav --out output/short_recuerdos_final.mp4
+```
+
+La narración original duraba 61,6 s. Solo se recortaron las pausas de más de 0,45 s, sin cambiar la velocidad de la voz, y se normalizó el volumen. Quedó en 58,8 s.
