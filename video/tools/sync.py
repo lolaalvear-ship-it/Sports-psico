@@ -64,6 +64,10 @@ def main():
         cfg = json.loads(Path(a.config).read_text(encoding="utf-8"))
         text_path, out_path = ROOT / cfg["text"], ROOT / cfg["out"]
         anchors, marks = [tuple(x) for x in cfg["anchors"]], [tuple(x) for x in cfg.get("marks", [])]
+        # «breaks»: {índice de párrafo: segundo aproximado de su final} para lecturas muy lentas o dramáticas
+        hints = {int(k): v for k, v in cfg.get("breaks", {}).items()}
+    else:
+        hints = {}
 
     dur = duration(a.audio)
     sil = silences(a.audio, a.noise, a.min_sil)
@@ -118,10 +122,14 @@ def main():
     for g in range(G):
         mid = (gaps[g][0] + gaps[g][1]) / 2
         cost[0][g] = (mid - expected[0]) ** 2 - 0.5 * (gaps[g][1] - gaps[g][0])
+        if 0 in hints and abs(mid - hints[0]) > 0.4:
+            cost[0][g] += 1e6
     for k in range(1, K):
         for g in range(k, G):
             mid = (gaps[g][0] + gaps[g][1]) / 2
             here = (mid - expected[k]) ** 2 - 0.5 * (gaps[g][1] - gaps[g][0])
+            if k in hints and abs(mid - hints[k]) > 0.4:
+                here += 1e6
             best = min(range(k - 1, g), key=lambda h: cost[k - 1][h])
             cost[k][g] = cost[k - 1][best] + here
             back[k][g] = best

@@ -1,0 +1,107 @@
+{
+  "text": "narracion_observado.txt",
+  "out": "src-observado/timeline.json",
+  "anchors": [
+    [
+      "hall",
+      null
+    ],
+    [
+      "gaze",
+      "Tu cerebro tiene"
+    ],
+    [
+      "blind",
+      "Incluso en"
+    ],
+    [
+      "field",
+      "Tu visión periférica"
+    ],
+    [
+      "bias",
+      "Así que"
+    ],
+    [
+      "smoke",
+      "Es el principio"
+    ],
+    [
+      "psi",
+      "¿Y el sexto"
+    ],
+    [
+      "robot",
+      "Lo más sorprendente"
+    ],
+    [
+      "reveal",
+      "A veces"
+    ]
+  ],
+  "marks": [
+    [
+      "hall",
+      "mira",
+      "sientes que alguien"
+    ],
+    [
+      "gaze",
+      "amigdala",
+      "la amígdala reacciona"
+    ],
+    [
+      "blind",
+      "noVer",
+      "que no podía ver"
+    ],
+    [
+      "field",
+      "ojos",
+      "pero no hacia"
+    ],
+    [
+      "bias",
+      "apuesta",
+      "asume que"
+    ],
+    [
+      "smoke",
+      "mejor",
+      "mejor muchas"
+    ],
+    [
+      "smoke",
+      "real",
+      "que ignorar"
+    ],
+    [
+      "psi",
+      "aleatorias",
+      "Cuando los experimentos"
+    ],
+    [
+      "psi",
+      "desaparecio",
+      "el efecto desapareció"
+    ],
+    [
+      "robot",
+      "detras",
+      "había alguien detrás"
+    ],
+    [
+      "robot",
+      "cuerpo",
+      "y esa presencia"
+    ],
+    [
+      "reveal",
+      "eresTu",
+      "eres tú"
+    ]
+  ],
+  "breaks": {
+    "0": 6.1
+  }
+}

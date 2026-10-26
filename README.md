@@ -64,3 +64,23 @@ node render.mjs --src src-recuerdos --audio audio/voz_recuerdos_final.wav --out 
 ```
 
 La narración original duraba 61,6 s. Solo se recortaron las pausas de más de 0,45 s, sin cambiar la velocidad de la voz, y se normalizó el volumen. Quedó en 58,8 s.
+
+---
+
+# Short 3 · «¿Por qué sentimos que alguien nos observa cuando estamos solos?»
+
+| Archivo | Contenido |
+|---|---|
+| `docs/tema3-observado/GUION.md` | Texto de la narración y plan de escenas |
+| `docs/tema3-observado/INVESTIGACION.md` | Hallazgos científicos separados de las creencias paranormales, con fuentes |
+| `video/output/short_observado_final.mp4` | **Video final con narración** (sin subtítulos) |
+| `video/src-observado/` | Escenas: pasillo, ojos, amígdala, campo visual, detector de humo, ciencia frente a creencia, robot de Blanke |
+| `video/projects/observado.json` | Anclas, marcas y la frontera fijada del primer párrafo (`breaks`) |
+
+```bash
+python3 tools/prep_audio.py audio/voz_observado.mp3 audio/voz_observado_final.wav --max-pause 0.5 --keep 60.47 --tempo 1.03
+python3 tools/sync.py audio/voz_observado_final.wav --config projects/observado.json
+node render.mjs --src src-observado --audio audio/voz_observado_final.wav --out output/short_observado_final.mp4
+```
+
+`tools/prep_audio.py` recorta pausas largas, salvo las indicadas con `--keep` (aquí, la pausa dramática antes de «eres tú»), aplica un tempo suave y normaliza el volumen a −14 LUFS.
