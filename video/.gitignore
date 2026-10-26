@@ -1,2 +1,7 @@
 node_modules/
 output/frames/
+.env
+__pycache__/
+reels/*/output/stills/
+reels/*/output/*_preview.mp4
+reels/*/audio/*.wav

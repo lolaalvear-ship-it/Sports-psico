@@ -1,0 +1,20 @@
+{
+ "duration": 30,
+ "audio": null,
+ "showCaptions": true,
+ "captionStyle": "caja",
+ "opening": "A",
+ "cover": 1.4,
+ "scenes": [
+  { "id": "hook", "start": 0, "end": 5 },
+  { "id": "dato", "start": 5, "end": 10 },
+  { "id": "estudio", "start": 10, "end": 16, "marks": { "comparacion": 1.2 } },
+  { "id": "cerebro", "start": 16, "end": 21 },
+  { "id": "practica", "start": 21, "end": 26 },
+  { "id": "cierre", "start": 26, "end": 30, "sfx": false }
+ ],
+ "captions": [
+  { "start": 5.2, "end": 6.4, "words": [ { "w": "Primer", "s": 5.2, "e": 5.7 }, { "w": "dato,", "s": 5.7, "e": 6.3 } ] },
+  { "start": 6.5, "end": 8.0, "words": [ { "w": "con", "s": 6.5, "e": 6.8 }, { "w": "su", "s": 6.8, "e": 7.1 }, { "w": "fuente.", "s": 7.1, "e": 7.9 } ] }
+ ]
+}

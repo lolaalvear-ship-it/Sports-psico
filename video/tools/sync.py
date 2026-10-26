@@ -9,7 +9,8 @@ Como el texto exacto de la narración es conocido (narracion.txt, un párrafo po
 Escribe src/timeline.json con escenas re-temporizadas, marcas de palabras clave y subtítulos.
 
 Uso:  python3 tools/sync.py voz.mp3 [--config projects/x.json] [--noise -35] [--min-sil 0.18]
-      Sin --config usa el proyecto del primer Short (narracion.txt -> src/timeline.json).
+      python3 tools/sync.py --reel <slug>      (reels/<slug>: audio/voz_final.wav, narracion.txt y reel.json -> timeline.json)
+      Sin --config ni --reel usa el proyecto del primer Short (narracion.txt -> src/timeline.json).
 """
 import json, re, subprocess, sys, unicodedata, argparse
 from pathlib import Path
@@ -54,13 +55,21 @@ def silences(audio, noise, min_sil):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("audio")
+    ap.add_argument("audio", nargs="?")
+    ap.add_argument("--reel", help="slug de reels/<slug>")
     ap.add_argument("--noise", type=float, default=-35)
     ap.add_argument("--min-sil", type=float, default=0.18)
     ap.add_argument("--config", help="JSON con text, out, anchors y marks de otro proyecto")
     a = ap.parse_args()
     text_path, out_path, anchors, marks = ROOT / "narracion.txt", ROOT / "src" / "timeline.json", ANCHORS, MARKS
-    if a.config:
+    if a.reel:
+        base = ROOT / "reels" / a.reel
+        cfg = json.loads((base / "reel.json").read_text(encoding="utf-8"))
+        text_path, out_path = base / "narracion.txt", base / "timeline.json"
+        a.audio = a.audio or str(base / "audio" / "voz_final.wav")
+        anchors, marks = [tuple(x) for x in cfg["anchors"]], [tuple(x) for x in cfg.get("marks", [])]
+        hints = {int(k): v for k, v in cfg.get("breaks", {}).items()}
+    elif a.config:
         cfg = json.loads(Path(a.config).read_text(encoding="utf-8"))
         text_path, out_path = ROOT / cfg["text"], ROOT / cfg["out"]
         anchors, marks = [tuple(x) for x in cfg["anchors"]], [tuple(x) for x in cfg.get("marks", [])]
@@ -69,6 +78,8 @@ def main():
     else:
         hints = {}
 
+    if not a.audio:
+        ap.error("falta el audio")
     dur = duration(a.audio)
     sil = silences(a.audio, a.noise, a.min_sil)
     speech_start = sil[0][1] if sil and sil[0][0] < 0.05 else 0.0
@@ -231,9 +242,15 @@ def main():
     for i in range(len(caps) - 1):
         caps[i]["end"] = min(caps[i]["end"], caps[i + 1]["start"])
 
-    prev = out_path
-    show = json.loads(prev.read_text(encoding="utf-8")).get("showCaptions", True) if prev.exists() else True
-    tl = {"duration": final, "audio": Path(a.audio).name, "showCaptions": show, "scenes": scenes, "captions": caps}
+    # conserva los ajustes hechos a mano en el timeline anterior (subtítulos, apertura, portada, cámara por escena)
+    prev = json.loads(out_path.read_text(encoding="utf-8")) if out_path.exists() else {}
+    keep = {k: v for k, v in prev.items() if k not in ("duration", "audio", "scenes", "captions")}
+    old = {sc["id"]: sc for sc in prev.get("scenes", [])}
+    for sc in scenes:
+        for k, v in old.get(sc["id"], {}).items():
+            if k not in ("id", "start", "end", "marks"):
+                sc[k] = v
+    tl = {"duration": final, "audio": Path(a.audio).name, "showCaptions": True, **keep, "scenes": scenes, "captions": caps}
     out_path.write_text(json.dumps(tl, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"Audio {dur:.2f}s · habla {speech_start:.2f}–{speech_end:.2f}s · {len(gaps)} pausas · video {final:.2f}s")
     for sc in scenes:

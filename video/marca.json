@@ -1,0 +1,23 @@
+{
+  "nombre": "Tu nombre · Psicología del deporte",
+  "usuario": "@tu_usuario",
+  "cierre": "Tu frase de siempre.",
+  "colores": { "primario": "#1aa3ff", "acento": "#ffbf5e", "fondo": "#04060b" },
+  "marcaAgua": true,
+  "subtitulos": "caja",
+  "voz": {
+    "voice_id": "",
+    "modelo": "eleven_multilingual_v2",
+    "estabilidad": 0.45,
+    "similitud": 0.8,
+    "estilo": 0.2,
+    "velocidad": 1.0
+  },
+  "pronunciacion": {
+    "TDAH": "te de a hache",
+    "VO2max": "ve o dos máx",
+    "fMRI": "resonancia funcional",
+    "EEG": "electroencefalograma"
+  },
+  "hashtags": ["#psicologiadeldeporte", "#deporte", "#mentalidad"]
+}

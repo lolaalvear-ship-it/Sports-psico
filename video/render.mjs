@@ -5,6 +5,10 @@
 //   node render.mjs --from 10 --to 20     -> renderiza solo un tramo (pruebas)
 //   node render.mjs --audio voz.mp3 --out output/final.mp4   -> mezcla con la narración
 //   node render.mjs --src src-recuerdos ...                   -> otro proyecto (carpeta con index.html, main.js y timeline.json)
+// Reels del flujo guiado (reels/<slug>/scenes.js + timeline.json, motor en engine/):
+//   node render.mjs --reel <slug> --stills 0.5,3 [--open B]   -> fotogramas de prueba (apertura A o B)
+//   node render.mjs --reel <slug> --cover                      -> portada.png en reels/<slug>/output/
+//   node render.mjs --reel <slug> [--audio ...]                -> output/reel.mp4 (usa audio/mezcla.wav o audio/voz_final.wav si existen)
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -21,17 +25,26 @@ const opt = (k, d) => { const i = args.indexOf('--' + k); return i >= 0 ? args[i
 const FPS = 30;
 const stills = opt('stills');
 const from = parseFloat(opt('from', '0'));
-const audio = opt('audio');
-const out = opt('out', path.join(ROOT, 'output', 'short_sin_narracion.mp4'));
-const SRC = opt('src', 'src');
+const REEL = opt('reel');
+const SRC = REEL ? path.join('reels', REEL) : opt('src', 'src');
+const BASE = path.join(ROOT, SRC);
+if (REEL && !fs.existsSync(path.join(BASE, 'scenes.js'))) { console.error(`No existe ${SRC}/scenes.js`); process.exit(1); }
+const OUTDIR = REEL ? path.join(BASE, 'output') : path.join(ROOT, 'output');
+const autoAudio = REEL && ['mezcla.wav', 'voz_final.wav'].map(f => path.join(BASE, 'audio', f)).find(f => fs.existsSync(f));
+const audio = opt('audio', args.includes('--mute') ? undefined : autoAudio);
+const open = opt('open');
+const cover = args.includes('--cover');
+const out = opt('out', path.join(OUTDIR, REEL ? `reel${open ? '_' + open : ''}.mp4` : 'short_sin_narracion.mp4'));
 
-const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json' };
+const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.otf': 'font/otf' };
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split('?')[0]);
   if (p === '/') p = '/index.html';
-  const file = p.startsWith('/three/')
-    ? path.join(ROOT, 'node_modules/three/build', p.slice(7))
-    : path.join(ROOT, SRC, p);
+  const file = p.startsWith('/three/') ? path.join(ROOT, 'node_modules/three/build', p.slice(7))
+    : p.startsWith('/engine/') ? path.join(ROOT, p)
+    : p === '/marca.json' ? path.join(ROOT, 'marca.json')
+    : REEL && p === '/index.html' ? path.join(ROOT, 'engine', 'index.html')
+    : path.join(BASE, p);
   fs.readFile(file, (err, buf) => {
     if (err) { res.writeHead(404); res.end(); return; }
     res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
@@ -47,19 +60,27 @@ const browser = await chromium.launch({
 const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
 page.on('console', m => console.log('[page]', m.text()));
 page.on('pageerror', e => console.error('[page error]', e));
-await page.goto(`http://127.0.0.1:${port}/`);
+page.on('requestfailed', r => console.error('[no cargó]', r.url()));
+page.on('response', r => { if (r.status() >= 400) console.error('[' + r.status() + ']', r.url()); });
+await page.goto(`http://127.0.0.1:${port}/${open ? '?open=' + open : ''}`);
 await page.waitForFunction('window.READY === true', null, { timeout: 120000 });
 const DURATION = await page.evaluate('window.DURATION');
 const to = parseFloat(opt('to', String(DURATION)));
 
 const toBuf = d => Buffer.from(d.slice(d.indexOf(',') + 1), 'base64');
 
-if (stills) {
-  const dir = path.join(ROOT, 'output', 'stills');
+if (cover) {
+  fs.mkdirSync(OUTDIR, { recursive: true });
+  const t = parseFloat(opt('at', String(await page.evaluate('window.COVER_T ?? 1'))));
+  const f = path.join(OUTDIR, `portada${open ? '_' + open : ''}.png`);
+  fs.writeFileSync(f, toBuf(await page.evaluate(t => window.renderFrame(t, 'image/png'), t)));
+  console.log('portada', t, '->', f);
+} else if (stills) {
+  const dir = path.join(OUTDIR, 'stills');
   fs.mkdirSync(dir, { recursive: true });
   for (const s of stills.split(',').map(Number)) {
     const d = await page.evaluate(t => window.renderFrame(t, 'image/png'), s);
-    fs.writeFileSync(path.join(dir, `t${s.toFixed(2)}.png`), toBuf(d));
+    fs.writeFileSync(path.join(dir, `${open ? open + '_' : ''}t${s.toFixed(2)}.png`), toBuf(d));
     console.log('still', s);
   }
 } else {

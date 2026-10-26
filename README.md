@@ -1,3 +1,53 @@
+# Reels de psicología · motor y flujo guiado
+
+Pídele a Claude Code, abriendo esta carpeta: **«Hazme un reel sobre por qué los deportistas se bloquean en los penaltis»**.
+La skill `reel` (`.claude/skills/reel/SKILL.md`) te lleva por cuatro pasos y no avanza sin tu aprobación:
+
+| Paso | Qué hace | Tú apruebas |
+|---|---|---|
+| 1 · Fuentes | Busca en PubMed (`tools/pubmed.py`), propone de 3 a 6 estudios con el dato de cada uno y avisa si se contradicen | Qué fuentes entran |
+| 2 · Guion | Tres ganchos y el guion con la fuente al lado de cada dato | Gancho y guion |
+| 3 · Voz | ElevenLabs (`tools/voz.py`) con tu voz y pronunciación de siglas; luego recorta pausas y sincroniza | La voz (solo se paga tras aprobar el guion) |
+| 4 · Vídeo | Dos aperturas (A/B) en fotogramas de prueba; después vídeo final con efectos de sonido, portada y texto del post con referencias | La apertura |
+
+### Qué necesitas
+
+- Node 18+ y Python 3 con `numpy`; `ffmpeg` en el PATH.
+- Playwright con Chromium: `npm i -g playwright && npx playwright install chromium` (si no lo tienes ya).
+- Cuenta de ElevenLabs. Crea `video/.env` con `ELEVENLABS_API_KEY=...` y pon tu `voice_id` en `video/marca.json`
+  (`python3 tools/voz.py --voces` lista las de tu cuenta). Para usar los vídeos en redes necesitas un plan de pago de ElevenLabs.
+- Rellena `video/marca.json`: nombre, usuario, colores, frase de cierre, estilo de subtítulos y pronunciaciones.
+
+### Estructura
+
+| Ruta | Contenido |
+|---|---|
+| `video/engine/core.js` | Utilidades, tipografía animada, citas, siluetas, grano/viñeta, cámara y composición con fundidos |
+| `video/engine/captions.js` | Subtítulos palabra a palabra en 4 estilos: `karaoke`, `caja`, `pop`, `linea` |
+| `video/engine/kit2d.js` | Cifra que cuenta, barras comparativas, electrocardiograma, respiración, cronómetro, estadio, diana, etiqueta, cierre de marca |
+| `video/engine/kit3d.js` | Cerebro 3D con regiones resaltables (amígdala, prefrontal, corteza motora, cerebelo…), neuronas y sinapsis |
+| `video/reels/_plantilla/` | Reel de ejemplo con todas las piezas; `tools/nuevo_reel.py` lo copia para cada reel nuevo |
+| `video/reels/<slug>/` | `FUENTES.md`, `GUION.md`, `narracion.txt`, `scenes.js`, `timeline.json`, `POST.md`, `audio/`, `output/` |
+| `video/tools/` | `pubmed.py`, `voz.py`, `prep_audio.py`, `sync.py`, `sfx.py`, `nuevo_reel.py` |
+
+### Comandos sueltos
+
+```bash
+cd video && npm install
+python3 tools/nuevo_reel.py penaltis "Por qué fallamos los penaltis"
+python3 tools/voz.py penaltis --si                       # voz (gasta créditos)
+python3 tools/prep_audio.py reels/penaltis/audio/voz.mp3 reels/penaltis/audio/voz_final.wav
+python3 tools/sync.py --reel penaltis                    # escenas y subtítulos sincronizados
+node render.mjs --reel penaltis --stills 1,2.5 --open B  # fotogramas de prueba de la apertura B
+python3 tools/sfx.py penaltis                            # efectos de sonido + mezcla
+node render.mjs --reel penaltis                          # reels/penaltis/output/reel.mp4
+node render.mjs --reel penaltis --cover                  # reels/penaltis/output/portada.png
+```
+
+Las tipografías Inter e Inter Display van incluidas en `video/engine/fonts/` (licencia SIL OFL 1.1).
+
+---
+
 # Short · «¿Por qué nuestro cerebro se obsesiona con alguien que no podemos tener?»
 
 Short vertical (1080×1920, 30 fps, 60 s, MP4/H.264) producido íntegramente por código, sin servicios de pago.

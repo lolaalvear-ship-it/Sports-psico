@@ -1,0 +1,15 @@
+{
+  "titulo": "Plantilla de ejemplo",
+  "anchors": [
+    ["hook", null],
+    ["dato", "Primer dato"],
+    ["estudio", "Segundo dato"],
+    ["cerebro", "Qué ocurre"],
+    ["practica", "Qué puedes"],
+    ["cierre", "Frase de cierre"]
+  ],
+  "marks": [
+    ["estudio", "comparacion", "la comparación"]
+  ],
+  "breaks": {}
+}
