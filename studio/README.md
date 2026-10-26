@@ -28,6 +28,10 @@ No necesita computadora, servidor ni cuentas de pago.
 | Aviso «Representación conceptual» y fuentes al final del video | ✔ |
 | Guiones con IA, composición automática avanzada, biblioteca anatómica descargable | Fase 2 |
 
+## Video de prueba ya exportado
+
+`demo/enamoramiento_15s_1080x1920.mp4`: «¿Qué sucede en tu cerebro cuando te enamoras?», 15 s, 1080×1920, producido por el mismo exportador de la app (prueba automática en Chromium).
+
 ## Exportación de video: qué está probado y qué no
 
 La app detecta lo que el navegador realmente puede hacer y elige, en este orden:
@@ -38,7 +42,7 @@ La app detecta lo que el navegador realmente puede hacer y elige, en este orden:
 
 La pestaña de exportación muestra qué método usará tu navegador antes de exportar.
 
-**Probado** (`npm run test:export`): Chromium 153 sin interfaz, en Linux. El video de prueba a 1080×1920 salió como MP4 válido con H.264 High, 450 fotogramas a 30 fps, 15 s, `moov` al inicio y audio Opus (Chromium para Linux no codifica AAC). ffmpeg lo decodifica completo sin errores.
+**Probado** (`npm run test:export`): Chromium 153 sin interfaz, en Linux. El video de prueba a 1080×1920 salió como MP4 válido con H.264 High, 450 fotogramas a 30 fps, 15 s, `moov` al inicio y audio Opus (Chromium para Linux no codifica AAC). ffmpeg lo decodifica completo sin errores. En ese servidor sin GPU (WebGL por software) tardó unos 4,5 minutos; en un teléfono con GPU debería ser bastante más rápido, pero no está medido.
 
 **Sin probar todavía en un Android real.** Chrome para Android tiene WebCodecs con H.264 y, normalmente, AAC por hardware, así que debería producir MP4 H.264 + AAC. La primera exportación en tu teléfono es la prueba definitiva; si algo falla, la pantalla de exportación muestra el error.
 

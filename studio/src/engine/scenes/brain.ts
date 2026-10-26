@@ -93,7 +93,7 @@ function brainCloud(style: VisualStyle) {
   geo.setAttribute('position', new THREE.Float32BufferAttribute(P, 3));
   geo.setAttribute('aBright', new THREE.Float32BufferAttribute(B, 1));
   geo.setAttribute('aSize', new THREE.Float32BufferAttribute(S, 1));
-  const base = new THREE.Color(style.primary).multiplyScalar(0.55 * style.glow);
+  const base = new THREE.Color(style.primary).multiplyScalar(0.95 * style.glow);
   const mat = new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending,
     uniforms: {
@@ -201,7 +201,7 @@ export const buildBrain: SceneBuilder = ({ scene: sc, style }) => {
     scene,
     camera,
     update(lt, dur) {
-      applyCamera(camera, sc.camera, lt, dur, { target: new THREE.Vector3(0, 0.02, 0), radius: 1.05, azimuth: 1.05, elevation: 0.18 });
+      applyCamera(camera, sc.camera, lt, dur, { target: new THREE.Vector3(0, 0.02, 0), radius: 0.92, azimuth: 1.05, elevation: 0.18 });
       root.rotation.y = 0.05 * Math.sin(lt * 0.4);
       const appear = smooth(0, 1.2, lt);
       u.uAlpha.value = appear;
