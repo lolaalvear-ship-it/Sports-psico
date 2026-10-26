@@ -1,0 +1,4 @@
+node_modules/
+video/output/stills/
+video/output/*.jpg
+video/output/render.log

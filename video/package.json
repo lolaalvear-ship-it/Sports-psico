@@ -1,0 +1,14 @@
+{
+  "name": "short-obsesion-cerebro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Short 9:16 renderizado por código: ¿Por qué nuestro cerebro se obsesiona con alguien que no podemos tener?",
+  "scripts": {
+    "render": "node render.mjs",
+    "frames": "node render.mjs --frames"
+  },
+  "dependencies": {
+    "three": "0.169.0"
+  }
+}

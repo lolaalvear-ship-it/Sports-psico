@@ -1,0 +1,81 @@
+{
+  "duration": 60,
+  "scenes": [
+    {
+      "id": "phone",
+      "start": 0.0,
+      "end": 3.6
+    },
+    {
+      "id": "window",
+      "start": 3.6,
+      "end": 8.0
+    },
+    {
+      "id": "scan",
+      "start": 8.0,
+      "end": 11.5
+    },
+    {
+      "id": "memories",
+      "start": 11.5,
+      "end": 14.5
+    },
+    {
+      "id": "vta",
+      "start": 14.5,
+      "end": 19.0
+    },
+    {
+      "id": "pathway",
+      "start": 19.0,
+      "end": 23.5
+    },
+    {
+      "id": "neurons",
+      "start": 23.5,
+      "end": 27.5
+    },
+    {
+      "id": "synapse",
+      "start": 27.5,
+      "end": 31.5
+    },
+    {
+      "id": "cards",
+      "start": 31.5,
+      "end": 35.5
+    },
+    {
+      "id": "thoughts",
+      "start": 35.5,
+      "end": 39.5
+    },
+    {
+      "id": "bear",
+      "start": 39.5,
+      "end": 43.5
+    },
+    {
+      "id": "rebound",
+      "start": 43.5,
+      "end": 47.5
+    },
+    {
+      "id": "pain",
+      "start": 47.5,
+      "end": 52.5
+    },
+    {
+      "id": "dawn",
+      "start": 52.5,
+      "end": 56.5
+    },
+    {
+      "id": "release",
+      "start": 56.5,
+      "end": 60.0
+    }
+  ],
+  "captions": []
+}

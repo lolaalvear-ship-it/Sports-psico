@@ -1,0 +1,35 @@
+# Short · «¿Por qué nuestro cerebro se obsesiona con alguien que no podemos tener?»
+
+Short vertical (1080×1920, 30 fps, 60 s, MP4/H.264) producido íntegramente por código, sin servicios de pago.
+
+| Carpeta | Contenido |
+|---|---|
+| `docs/GUION.md` | Texto para la narración + guion técnico escena por escena |
+| `docs/INVESTIGACION.md` | Estudios usados, qué dicen, sus límites y enlaces de verificación |
+| `video/output/short_sin_narracion.mp4` | **Video final sin narración** |
+| `video/src/` | Motor de escenas (Three.js + Canvas 2D) y `timeline.json` |
+| `video/render.mjs` | Render fotograma a fotograma (Chromium sin interfaz → ffmpeg) |
+| `video/tools/sync.py` | Sincroniza escenas y subtítulos con la voz |
+
+## Cómo se produce
+
+1. `video/src/main.js` dibuja cada instante `t`: el cerebro 3D (una nube de unos 90 000 puntos con surcos, ATV, estriado y vías dopaminérgicas), la red de neuronas con impulsos, la sinapsis con vesículas y dopamina, escenas cinematográficas en 2D (siluetas con luz de contorno, lluvia, bokeh, amanecer), textos animados, grano y viñeta.
+2. `render.mjs` abre la página en Chromium sin interfaz, pide los 1800 fotogramas uno a uno y los pasa a ffmpeg (libx264, CRF 17, `+faststart`).
+
+```bash
+cd video && npm install
+node render.mjs                         # video completo
+node render.mjs --stills 1,15,30        # fotogramas de prueba en PNG
+```
+
+## Fase 2: incorporar la narración
+
+1. Genera la voz con el texto de `docs/GUION.md`. Para una mejor sincronía, deja una pausa breve (unos 0,3 s) entre párrafos.
+2. Envía el MP3. Después se ejecuta lo siguiente:
+
+```bash
+python3 tools/sync.py voz.mp3            # re-temporiza escenas + subtítulos palabra a palabra
+node render.mjs --audio voz.mp3 --out output/short_final.mp4
+```
+
+`sync.py` no usa reconocimiento de voz. Detecta las pausas con ffmpeg y, como el texto es conocido, asigna cada párrafo y cada palabra a su tramo. Así cada escena empieza con la frase que ilustra, y los subtítulos aparecen en bloques de hasta 3 palabras, con la palabra activa resaltada.
