@@ -216,7 +216,9 @@ def main():
     for i in range(len(caps) - 1):
         caps[i]["end"] = min(caps[i]["end"], caps[i + 1]["start"])
 
-    tl = {"duration": final, "audio": Path(a.audio).name, "scenes": scenes, "captions": caps}
+    prev = ROOT / "src" / "timeline.json"
+    show = json.loads(prev.read_text(encoding="utf-8")).get("showCaptions", True) if prev.exists() else True
+    tl = {"duration": final, "audio": Path(a.audio).name, "showCaptions": show, "scenes": scenes, "captions": caps}
     (ROOT / "src" / "timeline.json").write_text(json.dumps(tl, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"Audio {dur:.2f}s · habla {speech_start:.2f}–{speech_end:.2f}s · {len(gaps)} pausas · video {final:.2f}s")
     for sc in scenes:

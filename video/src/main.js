@@ -1119,7 +1119,7 @@ SC.rebound = (c, lt, d, sc0) => {
   cite(c, 'Wegner et al. · J Pers Soc Psychol 1987', lt, 0.5, d + 0.3, 1480);
 };
 
-// 13 · Dolor: el rechazo activa regiones que se solapan con las del dolor físico
+// 13 · Dolor: el rechazo activa regiones que también se activan con el dolor físico
 SC.pain = (c, lt, d) => {
   brainBase();
   const u = brain.mat.uniforms;
@@ -1148,7 +1148,7 @@ SC.pain = (c, lt, d) => {
   }
   c.stroke(); c.restore();
   title(c, 'EL RECHAZO DUELE', W / 2, 330, lt, 0.2, d + 0.3, { size: 78, weight: 800, spacing: 4, color: '#ff8a8a', glowPx: 30, glowColor: '#ff1f3a' });
-  title(c, 'regiones que se solapan con el dolor físico', W / 2, 415, lt, 0.6, d + 0.3, { size: 40, weight: 600, family: 'Inter' });
+  title(c, 'regiones que también se activan con el dolor físico', W / 2, 415, lt, 0.6, d + 0.3, { size: 40, weight: 600, family: 'Inter' });
   cite(c, 'Kross et al. · PNAS 2011', lt, 0.8, d + 0.3, 1450);
 };
 
@@ -1214,7 +1214,7 @@ const NO_CAPS = new Set(['phone', 'dawn', 'release']);
 function drawCaptions(c, t) {
   // cada entrada: { start, end, words: [{w, s, e}] } — se resalta la palabra activa
   const cap = CAPTIONS.find(k => t >= k.start && t < k.end);
-  if (!cap) return;
+  if (!cap || TL.showCaptions === false) return;
   const sc = TL.scenes.find(k => t >= k.start && t < k.end);
   if (sc && NO_CAPS.has(sc.id)) return;
   const a = inOut(t, cap.start, cap.end, 0.08, 0.08);

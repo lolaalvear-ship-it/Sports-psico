@@ -43,7 +43,7 @@
 | 0:35.5–0:39.5 | Silueta con órbitas de pensamientos y preguntas que aparecen y desaparecen. | …porque pensaban más en esa persona. | MÁS DUDA = más pensamientos en esa persona |
 | 0:39.5–0:43.5 | Partículas que forman un oso blanco. | Y tratar de no pensar puede salir peor: en el experimento del oso blanco… | NO PIENSES EN UN OSO BLANCO |
 | 0:43.5–0:47.5 | Onda de supresión que dispersa el oso… que vuelve y se multiplica. | …el pensamiento suprimido volvía más a menudo. | SUPRIMIRLO… / …lo hizo VOLVER más · *Wegner et al. 1987* |
-| 0:47.5–0:52.5 | Cerebro en tonos rojos; latido sobre ínsula y corteza somatosensorial; electrocardiograma. | Además, el rechazo activa regiones que se solapan con las del dolor físico. | EL RECHAZO DUELE · *Kross et al. 2011* |
+| 0:47.5–0:52.5 | Cerebro en tonos rojos; latido sobre ínsula y corteza somatosensorial; electrocardiograma. | Además, el rechazo activa regiones que se solapan con las del dolor físico. | EL RECHAZO DUELE · regiones que también se activan con el dolor físico · *Kross et al. 2011* |
 | 0:52.5–0:56.5 | Amanecer: la misma silueta, ahora con luz cálida. | No es debilidad. Es un cerebro atrapado en un «quizás». | NO ES DEBILIDAD. · Es un cerebro atrapado en un **«quizás»** |
 | 0:56.5–1:00 | «quizás» se disuelve en partículas sobre un cerebro en calma. | Y entenderlo es el primer paso para soltar. | Entenderlo es el primer paso **PARA SOLTAR.** |
 
