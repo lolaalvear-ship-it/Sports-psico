@@ -84,3 +84,21 @@ node render.mjs --src src-observado --audio audio/voz_observado_final.wav --out 
 ```
 
 `tools/prep_audio.py` recorta pausas largas, salvo las indicadas con `--keep` (aquí, la pausa dramática antes de «eres tú»), aplica un tempo suave y normaliza el volumen a −14 LUFS.
+
+---
+
+# Shorts de 14 s con IA de video (animación médica 3D)
+
+Formato: vertical, 14 s, viaje del órgano a la molécula y vuelta, etiquetas con línea guía, palabra clave y cierre oscuro con el usuario. La imagen se genera con una IA de video (Veo, Kling, Sora, Hailuo o Runway). El texto lo añade el código, para que salga siempre bien escrito.
+
+| Archivo | Contenido |
+|---|---|
+| `docs/ia-video/GUIA.md` | Estructura de los 14 s, bloque de estilo, plantillas de prompts y consejos |
+| `video/ia/montar.py` | Une los clips, encuadra a 9:16 y añade etiquetas, palabra clave, marca de agua, cierre y música |
+| `video/ia/proyectos/cafeina/` | Proyecto de ejemplo: prompts en la guía y `proyecto.json` listo; faltan los clips |
+
+```bash
+cd video
+python3 ia/montar.py ia/proyectos/cafeina/proyecto.json --preview 2,6,9,12   # comprobar posiciones
+python3 ia/montar.py ia/proyectos/cafeina/proyecto.json                      # render final
+```
