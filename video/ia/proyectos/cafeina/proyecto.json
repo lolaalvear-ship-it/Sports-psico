@@ -1,89 +1,105 @@
 {
   "titulo": "¿Por qué la cafeína te quita el sueño?",
   "usuario": null,
-  "duracion": 11.0,
+  "duracion": 12.0,
   "fundido": 0.4,
-  "salida": "short_cafeina.mp4",
+  "salida": "../../../output/short_cafeina_ia.mp4",
   "clips": [
     {
       "archivo": "clips/1_cerebro.mp4",
+      "desde": 1.0,
       "duracion": 4.0
     },
     {
       "archivo": "clips/2_adenosina.mp4",
-      "duracion": 4.0
+      "desde": 0.5,
+      "duracion": 3.5
     },
     {
       "archivo": "clips/3_cafeina.mp4",
-      "duracion": 4.0
+      "desde": 0.0,
+      "duracion": 5.0
     }
   ],
   "etiquetas": [
     {
       "texto": "Adenosina ↑",
-      "desde": 1.2,
+      "desde": 1.0,
       "hasta": 3.6,
-      "pos": [
-        0.3,
-        0.62
-      ],
-      "punto": [
-        0.5,
-        0.52
-      ]
-    },
-    {
-      "texto": "Receptor A1",
-      "desde": 4.2,
-      "hasta": 7.4,
       "pos": [
         0.28,
         0.7
       ],
       "punto": [
-        0.48,
-        0.58
+        0.47,
+        0.48
+      ]
+    },
+    {
+      "texto": "Adenosina",
+      "desde": 4.4,
+      "hasta": 7.0,
+      "pos": [
+        0.22,
+        0.32
+      ],
+      "punto": [
+        0.5,
+        0.42
+      ]
+    },
+    {
+      "texto": "Receptor A1",
+      "desde": 4.0,
+      "hasta": 7.0,
+      "pos": [
+        0.72,
+        0.88
+      ],
+      "punto": [
+        0.6,
+        0.72
       ]
     },
     {
       "texto": "Actividad neuronal ↓",
-      "desde": 5.4,
-      "hasta": 7.4,
+      "desde": 5.0,
+      "hasta": 7.0,
       "pos": [
-        0.62,
-        0.36
+        0.5,
+        0.2
       ]
     },
     {
       "texto": "Cafeína",
-      "desde": 8.0,
-      "hasta": 10.0,
+      "desde": 8.6,
+      "hasta": 11.0,
       "pos": [
-        0.72,
+        0.76,
         0.4
       ],
       "punto": [
-        0.55,
-        0.5
+        0.48,
+        0.53
       ]
     },
     {
       "texto": "Receptor bloqueado",
-      "desde": 8.4,
-      "hasta": 10.0,
+      "desde": 9.0,
+      "hasta": 11.0,
       "pos": [
-        0.32,
-        0.7
+        0.3,
+        0.72
       ],
       "punto": [
-        0.5,
+        0.44,
         0.58
       ]
     }
   ],
   "palabra_clave": {
     "texto": "ALERTA",
-    "desde": 9.0,
+    "desde": 9.6,
     "pos": [
       0.5,
       0.84
