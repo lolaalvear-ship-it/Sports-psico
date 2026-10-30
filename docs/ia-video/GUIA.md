@@ -1,19 +1,19 @@
-# Shorts de 14 s con IA de video: guía de estilo y prompts
+# Shorts cortos con IA de video: guía de estilo y prompts
 
-Formato que se busca: animación médica 3D hiperrealista, vertical y de 14 s. La cámara viaja del órgano a las moléculas y vuelve. Tiene etiquetas limpias y termina con un cierre oscuro con el usuario de Instagram.
+Formato que se busca: animación médica 3D hiperrealista, vertical y de unos 11 s. La cámara viaja del órgano a las moléculas y vuelve. Tiene etiquetas limpias, una palabra clave grande y termina con un fundido a negro.
 
 **La IA solo genera la imagen. Todo el texto se añade después con `video/ia/montar.py`.** Los generadores de video escriben mal el texto: en los ejemplos de referencia aparecen frases inventadas como «Bloclicatitcs anticholinolinergive…». Por eso todos los prompts piden *no text*.
 
 ---
 
-## 1. Estructura de los 14 s
+## 1. Estructura (11 s)
 
 | Tramo | Duración | Qué se ve | Texto (lo pone `montar.py`) |
 |---|---|---|---|
 | **A · Órgano** | 0–3,5 s | Plano general del órgano o tejido. La cámara avanza hacia dentro. | Nombre de la estructura o del problema |
 | **B · Mecanismo** | 3,5–7,5 s | Primer plano molecular: un receptor en la membrana y una molécula que llega y se une. | Molécula y receptor, con línea guía |
 | **C · Consecuencia** | 7,5–10 s | El efecto: una vía que se abre o se cierra, un tejido que cambia, un brillo o un flujo. | Efecto (↑/↓) y **PALABRA CLAVE** grande |
-| **Cierre** | 10–14 s | La imagen se congela y se oscurece. Aparece el icono con el usuario. | `@tu_usuario` |
+| **Cierre** | 10–11 s | Fundido a negro. | — |
 
 Hay dos maneras de generar el material:
 - **Un clip de 10 s** que recorra A → B → C en un solo plano continuo. Es lo más parecido a los ejemplos, pero cuesta más que salga bien.
@@ -75,7 +75,7 @@ to reveal the whole <órgano>.
 
 1. Crea una carpeta en `video/ia/proyectos/<tema>/` con `clips/` y un `proyecto.json`. Copia el de `cafeina/` como modelo.
 2. Ajusta en el JSON:
-   - `usuario`: tu @ de Instagram.
+   - `usuario`: déjalo en `null`. Si algún día tienes cuenta, pon tu @ y sube `duracion` a 14: aparecerá una marca de agua y un cierre de 4 s con tu usuario.
    - `clips`: archivo, `desde` (segundo de inicio dentro del clip) y `duracion`.
    - `etiquetas`: `texto` (admite `\n`, `↑`, `↓`, `²⁺`, `β₂`), `desde` y `hasta` en segundos, `pos` (centro de la píldora) y `punto` (opcional, adonde apunta la línea). Las coordenadas van de 0 a 1: `[0.5, 0.5]` es el centro de la pantalla.
    - `palabra_clave`: el texto grande del final.
@@ -91,7 +91,7 @@ to reveal the whole <órgano>.
    python3 ia/montar.py ia/proyectos/cafeina/proyecto.json
    ```
 
-Los clips pueden venir en cualquier tamaño o proporción: se encuadran a 9:16 recortando por el centro. Si entre todos no llegan a 14 s, se congela el último fotograma bajo el cierre, igual que en los ejemplos.
+Los clips pueden venir en cualquier tamaño o proporción: se encuadran a 9:16 recortando por el centro. Si entre todos no llegan a la duración total, se congela el último fotograma.
 
 ## 5. Proyecto de ejemplo: cafeína
 

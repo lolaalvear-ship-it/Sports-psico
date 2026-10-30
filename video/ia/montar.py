@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Monta un Short de 14 s a partir de clips generados con IA de video.
+"""Monta un Short corto a partir de clips generados con IA de video.
 
 La IA solo pone la imagen. Este script añade todo el texto, para que salga bien escrito:
-etiquetas con línea guía, palabra clave final, marca de agua y cierre oscurecido con el usuario.
+etiquetas con línea guía, palabra clave final y cierre. Si hay "usuario", añade marca de agua
+y un cierre oscurecido con el icono y el usuario; si no, el cierre es un fundido a negro.
 
 1. Recorta cada clip, lo encuadra en 1080×1920 y los une con fundidos cortos.
 2. Si los clips no llegan a la duración total, congela el último fotograma.
@@ -154,8 +155,8 @@ def main():
     p = json.loads(ruta.read_text(encoding="utf-8"))
     total = float(p.get("duracion", 14.0))
     c = p.get("cierre", {})
-    t_cierre = total - float(c.get("duracion", 4.0))
-    usuario = p["usuario"]
+    usuario = p.get("usuario")
+    t_cierre = total - float(c.get("duracion", 4.0 if usuario else 1.0))
     xf = float(p.get("fundido", 0.4))
     out = Path(a.out).resolve() if a.out else base / p.get("salida", "short.mp4")
 
@@ -199,10 +200,13 @@ def main():
         if p.get("palabra_clave"):
             k = p["palabra_clave"]
             capas.append((palabra_clave(k), k["desde"], k.get("hasta", total), 0.5))
-        if p.get("marca_agua", {}).get("activa", True):
+        if usuario and p.get("marca_agua", {}).get("activa", True):
             capas.append((marca_agua(usuario, p.get("marca_agua", {})), 0, t_cierre, FADE))
-        capas.append((oscuro(c.get("oscuridad", 0.68)), t_cierre, total, 0.8))
-        capas.append((cierre(usuario, c), t_cierre + 0.3, total, 0.6))
+        if usuario:
+            capas.append((oscuro(c.get("oscuridad", 0.68)), t_cierre, total, 0.8))
+            capas.append((cierre(usuario, c), t_cierre + 0.3, total, 0.6))
+        else:
+            capas.append((oscuro(c.get("oscuridad", 1.0)), t_cierre, total, total - t_cierre))
 
         cur = "v"
         n0 = len(clips)

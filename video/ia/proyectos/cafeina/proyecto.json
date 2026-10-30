@@ -1,23 +1,96 @@
 {
   "titulo": "¿Por qué la cafeína te quita el sueño?",
-  "usuario": "@tu_usuario",
-  "duracion": 14.0,
+  "usuario": null,
+  "duracion": 11.0,
   "fundido": 0.4,
   "salida": "short_cafeina.mp4",
   "clips": [
-    { "archivo": "clips/1_cerebro.mp4", "duracion": 4.0 },
-    { "archivo": "clips/2_adenosina.mp4", "duracion": 4.0 },
-    { "archivo": "clips/3_cafeina.mp4", "duracion": 4.0 }
+    {
+      "archivo": "clips/1_cerebro.mp4",
+      "duracion": 4.0
+    },
+    {
+      "archivo": "clips/2_adenosina.mp4",
+      "duracion": 4.0
+    },
+    {
+      "archivo": "clips/3_cafeina.mp4",
+      "duracion": 4.0
+    }
   ],
   "etiquetas": [
-    { "texto": "Adenosina ↑", "desde": 1.2, "hasta": 3.6, "pos": [0.30, 0.62], "punto": [0.50, 0.52] },
-    { "texto": "Receptor A1", "desde": 4.2, "hasta": 7.4, "pos": [0.28, 0.70], "punto": [0.48, 0.58] },
-    { "texto": "Actividad neuronal ↓", "desde": 5.4, "hasta": 7.4, "pos": [0.62, 0.36] },
-    { "texto": "Cafeína", "desde": 8.0, "hasta": 10.0, "pos": [0.72, 0.40], "punto": [0.55, 0.50] },
-    { "texto": "Receptor bloqueado", "desde": 8.4, "hasta": 10.0, "pos": [0.32, 0.70], "punto": [0.50, 0.58] }
+    {
+      "texto": "Adenosina ↑",
+      "desde": 1.2,
+      "hasta": 3.6,
+      "pos": [
+        0.3,
+        0.62
+      ],
+      "punto": [
+        0.5,
+        0.52
+      ]
+    },
+    {
+      "texto": "Receptor A1",
+      "desde": 4.2,
+      "hasta": 7.4,
+      "pos": [
+        0.28,
+        0.7
+      ],
+      "punto": [
+        0.48,
+        0.58
+      ]
+    },
+    {
+      "texto": "Actividad neuronal ↓",
+      "desde": 5.4,
+      "hasta": 7.4,
+      "pos": [
+        0.62,
+        0.36
+      ]
+    },
+    {
+      "texto": "Cafeína",
+      "desde": 8.0,
+      "hasta": 10.0,
+      "pos": [
+        0.72,
+        0.4
+      ],
+      "punto": [
+        0.55,
+        0.5
+      ]
+    },
+    {
+      "texto": "Receptor bloqueado",
+      "desde": 8.4,
+      "hasta": 10.0,
+      "pos": [
+        0.32,
+        0.7
+      ],
+      "punto": [
+        0.5,
+        0.58
+      ]
+    }
   ],
-  "palabra_clave": { "texto": "ALERTA", "desde": 9.0, "pos": [0.5, 0.84] },
-  "marca_agua": { "activa": true, "icono": true },
-  "cierre": { "duracion": 4.0, "oscuridad": 0.68, "icono": true },
+  "palabra_clave": {
+    "texto": "ALERTA",
+    "desde": 9.0,
+    "pos": [
+      0.5,
+      0.84
+    ]
+  },
+  "cierre": {
+    "duracion": 1.0
+  },
   "musica": null
 }
