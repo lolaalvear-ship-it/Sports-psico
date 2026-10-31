@@ -102,3 +102,20 @@ cd video
 python3 ia/montar.py ia/proyectos/cafeina/proyecto.json --preview 2,6,9,12   # comprobar posiciones
 python3 ia/montar.py ia/proyectos/cafeina/proyecto.json                      # render final
 ```
+
+### Versión 100 % código (sin IA)
+
+El mismo Short de la cafeína, con el mismo guion y los mismos tiempos, dibujado entero por código con el motor de los Shorts anteriores.
+
+| Archivo | Contenido |
+|---|---|
+| `video/src-cafeina/` | Escenas: neuronas con adenosina que se acumula en la sinapsis; membrana (bicapa lipídica) con el receptor A1 de 7 hélices; la cafeína ocupa el receptor y la adenosina rebota |
+| `video/output/short_cafeina_codigo.mp4` | **Video final** (12 s, sin audio) |
+
+```bash
+cd video
+node render.mjs --src src-cafeina --stills 2,6,10                  # fotogramas de prueba
+node render.mjs --src src-cafeina --out output/short_cafeina_codigo.mp4
+```
+
+El aspecto de tejido húmedo y brillante sale de materiales físicos (clearcoat y sheen) con un mapa de entorno procedural. La profundidad de campo se simula en tres pasadas: fondo desenfocado, plano nítido y primer plano desenfocado.

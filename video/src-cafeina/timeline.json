@@ -1,0 +1,9 @@
+{
+ "duration": 12.0,
+ "fadeOut": 1.0,
+ "scenes": [
+  { "id": "cerebro", "start": 0.0, "end": 4.2 },
+  { "id": "receptor", "start": 4.2, "end": 7.8 },
+  { "id": "cafeina", "start": 7.8, "end": 12.0 }
+ ]
+}
