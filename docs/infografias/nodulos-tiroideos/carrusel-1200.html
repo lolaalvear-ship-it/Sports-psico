@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Nódulos tiroideos · carrusel</title><link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{
+  --bg:#0f1430; --bg2:#151b3d; --card:#1a2149; --card2:#202858;
+  --line:#2c3670; --txt:#ffffff; --mut:#b9c0e0; --dim:#8f97c2;
+  --pink:#ff5fa8; --blue:#5b8cff; --cyan:#5fe0d0; --green:#b8f36b; --yellow:#ffd23f; --orange:#ff9a3c; --red:#ff4d6d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.page{width:1080px;margin:0 auto;padding:56px 56px 40px;
+  background:radial-gradient(900px 500px at 85% 0%,rgba(255,95,168,.14),transparent 60%),
+             radial-gradient(700px 500px at 0% 40%,rgba(91,140,255,.10),transparent 60%),var(--bg)}
+.kicker{display:inline-block;color:var(--pink);border:2px solid var(--pink);border-radius:999px;padding:6px 16px;font-weight:800;letter-spacing:.14em;font-size:17px}
+h1{font-size:104px;line-height:.92;font-weight:900;letter-spacing:-.03em;margin-top:22px}
+h1 .p{color:var(--pink);display:block}
+.sub{font-size:27px;color:var(--mut);margin-top:16px;font-weight:500}
+.sub b{color:var(--pink)}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+.stat{border:2px solid rgba(255,95,168,.55);background:var(--card);border-radius:22px;padding:18px 22px;display:flex;align-items:center;gap:16px;width:360px;margin-bottom:8px}
+.stat .n{white-space:nowrap;font-size:52px;font-weight:900;color:var(--pink);line-height:1}
+.stat .t{font-size:17px;color:var(--mut);line-height:1.3}
+.stat .t b{color:#fff}
+.gland{width:190px;flex:none}
+
+.sec{margin-top:44px}
+.h2{display:flex;align-items:center;gap:14px;font-size:30px;font-weight:900;letter-spacing:.01em;text-transform:uppercase;margin-bottom:18px}
+.h2::before{content:"";width:6px;height:34px;border-radius:4px;background:var(--bar,var(--blue))}
+.h2.pk{--bar:var(--pink)} .h2.gr{--bar:var(--green)} .h2.yl{--bar:var(--yellow)} .h2.cy{--bar:var(--cyan)}
+.lead{font-size:21px;color:var(--mut);line-height:1.45}
+.lead em{font-style:normal;color:var(--pink);font-weight:600}
+.lead i{font-style:normal;color:var(--blue);font-weight:600}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border-radius:22px;padding:22px;border:1.5px solid var(--line)}
+.card.pk{border-color:rgba(255,95,168,.6)} .card.bl{border-color:rgba(91,140,255,.6)} .card.gr{border-color:rgba(184,243,107,.55)}
+
+/* frequency */
+.freq{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+.fq{background:var(--card);border-radius:22px;padding:20px 22px;border:1.5px solid var(--line)}
+.fq .big{font-size:46px;font-weight:900;line-height:1}
+.fq .lb{font-size:17px;color:var(--mut);margin-top:8px;line-height:1.35}
+.people{display:flex;gap:6px;margin-top:20px;align-items:flex-end}
+.people svg{width:34px;height:60px}
+
+/* causes */
+.tile{background:var(--card);border-radius:22px;padding:20px 16px 18px;text-align:center;border:1.5px solid var(--line)}
+.tile svg{width:68px;height:68px;margin-bottom:8px}
+.tile h4{font-size:21px;font-weight:800}
+.tile p{font-size:15.5px;color:var(--mut);margin-top:4px;line-height:1.3}
+.risk{margin-top:18px;display:flex;gap:18px;align-items:center;background:linear-gradient(90deg,rgba(255,95,168,.16),rgba(255,95,168,.04));border:2px solid var(--pink);border-radius:22px;padding:18px 22px}
+.risk svg{width:54px;height:54px;flex:none}
+.risk p{font-size:19px;line-height:1.4;color:var(--mut)} .risk b{color:var(--pink)}
+
+/* types */
+.us{border-radius:16px;overflow:hidden;background:#e8edf5;border:3px solid var(--line)}
+.us img{display:block;width:100%}
+.type .us img{aspect-ratio:1/1;object-fit:cover;object-position:top}
+.type h4{font-size:24px;font-weight:900;margin-top:14px}
+.type p{font-size:17px;color:var(--mut);margin-top:4px}
+.type.a h4{color:#d6dbe6} .type.b h4{color:var(--blue)} .type.c h4{color:var(--orange)}
+
+/* suspicion */
+.sus{display:flex;gap:18px;align-items:center}
+.sus .us{width:170px;flex:none;background:#000}
+.sus h4{font-size:22px;font-weight:900;margin-bottom:10px}
+.sus ul{list-style:none}
+.sus li{font-size:18px;line-height:1.35;padding-left:20px;position:relative;margin:6px 0;color:#e7eaf7}
+.sus li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:50%;background:var(--dot)}
+.sus.ok{--dot:var(--green)} .sus.ok h4{color:var(--green)}
+.sus.bad{--dot:var(--pink)} .sus.bad h4{color:var(--pink)}
+.tag{display:inline-block;font-size:14px;font-weight:800;letter-spacing:.1em;padding:4px 12px;border-radius:999px;margin-bottom:10px}
+.tag.ok{background:rgba(184,243,107,.15);color:var(--green)} .tag.bad{background:rgba(255,95,168,.15);color:var(--pink)}
+
+/* tirads */
+.tir{display:grid;grid-template-columns:150px 1fr 90px 150px;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.tir:last-child{border-bottom:0}
+.tir .cl{font-size:22px;font-weight:900}
+.tir .bar{height:30px;background:#0c1029;border-radius:999px;position:relative;overflow:hidden}
+.tir .bar span{position:absolute;top:0;height:100%;border-radius:999px}
+.tir .pct{font-weight:900;font-size:19px;text-align:right}
+.tir .bx{font-size:17px;color:var(--mut);text-align:right} .tir .bx b{color:#fff;font-size:21px}
+.thead{display:grid;grid-template-columns:150px 1fr 90px 150px;gap:14px;font-size:14px;font-weight:800;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.thead div:last-child{text-align:right}
+.note{font-size:15px;color:var(--dim);margin-top:12px}
+
+/* exams */
+.exams{display:grid;grid-template-columns:1fr 300px;gap:18px}
+.step{display:flex;gap:14px;align-items:flex-start;padding:10px 0}
+.step .num{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:900;font-size:18px;color:#0f1430}
+.step h5{font-size:20px;font-weight:800}
+.step p{font-size:16.5px;color:var(--mut);line-height:1.35;margin-top:2px}
+.ph{border-radius:18px;overflow:hidden;border:2px solid var(--line);position:relative}
+.ph img{display:block;width:100%}
+.ph .cap{position:absolute;left:10px;bottom:10px;background:rgba(15,20,48,.88);color:#fff;font-weight:700;font-size:15px;padding:6px 12px;border-radius:999px}
+.ph + .ph{margin-top:14px}
+
+/* bethesda */
+.beth{width:100%;border-collapse:separate;border-spacing:0 8px}
+.beth th{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0 14px;font-weight:800}
+.beth td{background:var(--card);padding:13px 14px;font-size:17.5px}
+.beth td:first-child{border-radius:14px 0 0 14px;border-left:5px solid var(--c);font-weight:700}
+.beth td:last-child{border-radius:0 14px 14px 0;color:var(--mut)}
+.beth td.r{font-weight:900;color:var(--c);font-size:19px;white-space:nowrap}
+.beth .roman{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--c);color:#0f1430;font-weight:900;margin-right:10px;font-size:15px}
+
+/* bottom */
+.blist{list-style:none}
+.blist li{font-size:17.5px;line-height:1.4;padding-left:20px;position:relative;margin:8px 0;color:#e2e6f6}
+.blist li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:50%;background:var(--dot,var(--blue))}
+.card h3{font-size:24px;font-weight:900;margin-bottom:8px}
+.alarm{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px}
+.al{text-align:center}
+.al svg{width:60px;height:60px}
+.al p{font-size:16px;font-weight:700;margin-top:6px;line-height:1.25}
+.urg{margin-top:44px;display:flex;align-items:center;gap:20px;border:2px solid var(--pink);background:var(--card);border-radius:24px;padding:20px 24px}
+.urg .ex{width:58px;height:58px;border-radius:50%;background:var(--pink);display:grid;place-items:center;font-weight:900;font-size:34px;flex:none}
+.urg p{font-size:20px;line-height:1.4;color:#e7eaf7} .urg b{color:var(--pink)}
+.close{text-align:center;font-size:27px;font-weight:800;margin-top:36px}
+.close span{color:var(--pink)}
+.src{font-size:14px;color:var(--dim);margin-top:22px;line-height:1.5;text-align:center}
+.src b{color:var(--mut)}
+
+body{background:#070a1c}
+.slide{width:1200px;height:1200px;padding:64px 64px 0;position:relative;overflow:hidden;display:flex;flex-direction:column;margin:0 auto 24px;
+  background:radial-gradient(900px 500px at 90% 0%,rgba(255,95,168,.16),transparent 60%),radial-gradient(700px 600px at 0% 70%,rgba(91,140,255,.12),transparent 60%),var(--bg)}
+.slide .inner{flex:1;display:flex;flex-direction:column;justify-content:center}
+.slide .sec:first-child,.slide .inner>.sec:first-of-type{margin-top:0}
+.kicker{align-self:flex-start}
+.z>.sec:first-child,.z>.kicker+.hero{margin-top:0}
+.foot{height:76px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);color:var(--dim);font-weight:800;letter-spacing:.12em;font-size:15px}
+.foot b{color:var(--pink)}
+.dots{display:flex;gap:8px}.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}.dots i.on{background:var(--pink);width:28px;border-radius:6px}
+.s3 .type .us img{aspect-ratio:4/3}
+.s3 .sus .us{width:150px}
+.s1 h1{font-size:120px}
+</style></head><body>
+<div class="slide s1"><div class="inner"><div class="z" style="zoom:1.0;width:1072.0px"><!-- HERO -->
+<span class="kicker">SALUD EXPLICADA</span>
+<div class="hero">
+  <div>
+    <h1>Nódulos<span class="p">tiroideos</span></h1>
+    <p class="sub">Muy comunes, casi siempre <b>benignos</b>.<br>La clave es saber cuáles vigilar.</p>
+  </div>
+  <svg class="gland" viewBox="0 0 200 200" aria-hidden="true">
+    <defs><radialGradient id="g1" cx=".4" cy=".35"><stop offset="0" stop-color="#ff8cc3"/><stop offset="1" stop-color="#e0407f"/></radialGradient>
+    <radialGradient id="g2" cx=".35" cy=".3"><stop offset="0" stop-color="#ffe680"/><stop offset="1" stop-color="#f5a623"/></radialGradient></defs>
+    <rect x="86" y="18" width="28" height="170" rx="12" fill="#2c3670"/>
+    <path d="M98 100 C70 40 22 40 24 105 C26 160 70 170 92 140 Q100 128 108 140 C130 170 174 160 176 105 C178 40 130 40 102 100 Z" fill="url(#g1)"/>
+    <circle cx="140" cy="108" r="20" fill="url(#g2)" stroke="#fff" stroke-width="3"/>
+  </svg>
+</div>
+<div class="stat"><div class="n">+90 %</div><div class="t"><b>son benignos.</b> Solo una minoría corresponde a cáncer de tiroides.</div></div>
+
+<!-- QUÉ ES -->
+<section class="sec">
+  <h2 class="h2">¿Qué es?</h2>
+  <p class="lead">Un <em>crecimiento localizado</em> dentro de la glándula tiroides, en el cuello. Puede ser <i>sólido</i>, <i>quístico</i> (con líquido) o <i>mixto</i>. El objetivo es identificar cuáles necesitan <em>biopsia, tratamiento o solo vigilancia</em>.</p>
+  <div class="freq">
+    <div class="fq"><div class="big" style="color:var(--blue)">4–7 %</div><div class="lb">de los adultos tiene uno que se puede <b style="color:#fff">palpar</b></div></div>
+    <div class="fq"><div class="big" style="color:var(--cyan)">Muchos más</div><div class="lb">se descubren por <b style="color:#fff">ecografía</b>, incluso sin síntomas</div></div>
+    <div class="fq"><div class="big" style="color:var(--pink)">♀ + edad</div><div class="lb">más comunes en <b style="color:#fff">mujeres</b> y aumentan con los años</div></div>
+  </div>
+</section>
+
+</div></div><div class="foot"><span><b>SALUD EXPLICADA</b> · NÓDULOS TIROIDEOS</span><div class="dots"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div><span>1/7</span></div></div>
+<div class="slide s2"><div class="inner"><div class="z" style="zoom:1.3;width:824.6px"><!-- POR QUÉ APARECEN -->
+<section class="sec">
+  <h2 class="h2 pk">¿Por qué aparecen?</h2>
+  <div class="grid3">
+    <div class="tile"><svg viewBox="0 0 68 68"><circle cx="24" cy="26" r="13" fill="#ff8cc3"/><circle cx="44" cy="24" r="12" fill="#ff5fa8"/><circle cx="34" cy="44" r="14" fill="#e0407f"/><circle cx="24" cy="26" r="4" fill="#7a1d4a"/><circle cx="44" cy="24" r="4" fill="#7a1d4a"/><circle cx="34" cy="44" r="4" fill="#7a1d4a"/></svg><h4>Hiperplasia nodular</h4><p>Las células foliculares se multiplican</p></div>
+    <div class="tile"><svg viewBox="0 0 68 68"><path d="M34 6 C34 6 12 32 12 44 a22 22 0 0 0 44 0 C56 32 34 6 34 6Z" fill="#5b8cff"/><ellipse cx="26" cy="42" rx="5" ry="8" fill="#a9c2ff"/></svg><h4>Quistes</h4><p>Acumulación de líquido o degeneración</p></div>
+    <div class="tile"><svg viewBox="0 0 68 68"><path d="M34 6 L58 16 V34 C58 50 46 60 34 64 C22 60 10 50 10 34 V16Z" fill="#b8f36b"/><path d="M34 22 L38 32 L48 33 L40 40 L43 50 L34 44 L25 50 L28 40 L20 33 L30 32Z" fill="#0f1430"/></svg><h4>Tiroiditis de Hashimoto</h4><p>Inflamación autoinmunitaria</p></div>
+    <div class="tile"><svg viewBox="0 0 68 68"><circle cx="34" cy="34" r="27" fill="#ff9a3c"/><text x="34" y="47" text-anchor="middle" font-family="Figtree" font-weight="900" font-size="36" fill="#0f1430">I</text></svg><h4>Falta de yodo</h4><p>Estimula la tiroides y forma bocio</p></div>
+    <div class="tile"><svg viewBox="0 0 68 68"><ellipse cx="34" cy="36" rx="26" ry="22" fill="#5fe0d0"/><circle cx="24" cy="32" r="6" fill="#0f6f66"/><circle cx="42" cy="30" r="5" fill="#0f6f66"/><circle cx="36" cy="46" r="6" fill="#0f6f66"/></svg><h4>Adenomas foliculares</h4><p>Tumores benignos</p></div>
+    <div class="tile"><svg viewBox="0 0 68 68"><circle cx="34" cy="34" r="18" fill="#a259ff"/><g fill="#a259ff"><circle cx="34" cy="10" r="6"/><circle cx="34" cy="58" r="6"/><circle cx="10" cy="34" r="6"/><circle cx="58" cy="34" r="6"/><circle cx="17" cy="17" r="5"/><circle cx="51" cy="51" r="5"/><circle cx="51" cy="17" r="5"/><circle cx="17" cy="51" r="5"/></g><circle cx="34" cy="34" r="7" fill="#3b1673"/></svg><h4>Neoplasias malignas</h4><p>Crecimiento anormal de células</p></div>
+  </div>
+  <div class="risk">
+    <svg viewBox="0 0 54 54"><circle cx="27" cy="27" r="25" fill="#ffd23f"/><g fill="#0f1430"><circle cx="27" cy="27" r="5"/><path d="M27 21 L18 6 A24 24 0 0 0 5 27 H22 A5 5 0 0 1 27 21Z" transform="rotate(0 27 27)"/><path d="M27 21 L18 6 A24 24 0 0 0 5 27 H22 A5 5 0 0 1 27 21Z" transform="rotate(120 27 27)"/><path d="M27 21 L18 6 A24 24 0 0 0 5 27 H22 A5 5 0 0 1 27 21Z" transform="rotate(240 27 27)"/></g></svg>
+    <p><b>Factores de riesgo:</b> radiación previa en cabeza o cuello, ciertos factores genéticos y antecedentes familiares de cáncer de tiroides.</p>
+  </div>
+</section>
+
+</div></div><div class="foot"><span><b>SALUD EXPLICADA</b> · NÓDULOS TIROIDEOS</span><div class="dots"><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div><span>2/7</span></div></div>
+<div class="slide s3"><div class="inner"><div class="z" style="zoom:1.05;width:1021.0px"><!-- TIPOS -->
+<section class="sec">
+  <h2 class="h2 cy">Tipos según su composición</h2>
+  <div class="grid3">
+    <div class="type a"><div class="us"><img src="img/solido.png" alt="Ecografía de nódulo sólido"></div><h4>Sólido</h4><p>Compuesto por tejido tiroideo</p></div>
+    <div class="type b"><div class="us"><img src="img/quistico.png" alt="Ecografía de nódulo quístico"></div><h4>Quístico</h4><p>Contiene líquido</p></div>
+    <div class="type c"><div class="us"><img src="img/mixto.png" alt="Ecografía de nódulo mixto"></div><h4>Mixto</h4><p>Partes sólidas y quísticas</p></div>
+  </div>
+</section>
+
+<!-- SOSPECHOSO -->
+<section class="sec">
+  <h2 class="h2 pk">¿Cómo se ve uno sospechoso?</h2>
+  <p class="lead" style="margin-bottom:18px">La <i>ecografía tiroidea</i> permite evaluar sus características.</p>
+  <div class="grid2">
+    <div class="card gr sus ok"><div class="us"><img src="img/menor.png" alt="Ecografía de nódulo de menor sospecha"></div>
+      <div><span class="tag ok">MENOR SOSPECHA</span><ul><li>Quísticos puros</li><li>Espongiformes</li><li>Márgenes regulares</li><li>Sin signos sospechosos</li></ul></div></div>
+    <div class="card pk sus bad"><div class="us"><img src="img/mayor.png" alt="Ecografía de nódulo de mayor sospecha"></div>
+      <div><span class="tag bad">MAYOR SOSPECHA</span><ul><li>Muy hipoecoicos</li><li>Márgenes irregulares</li><li>Microcalcificaciones</li><li>Más alto que ancho</li><li>Se extiende fuera de la tiroides</li></ul></div></div>
+  </div>
+</section>
+
+</div></div><div class="foot"><span><b>SALUD EXPLICADA</b> · NÓDULOS TIROIDEOS</span><div class="dots"><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div><span>3/7</span></div></div>
+<div class="slide s4"><div class="inner"><div class="z" style="zoom:1.55;width:691.6px"><!-- EU-TIRADS -->
+<section class="sec">
+  <h2 class="h2 yl">Clasificación EU-TIRADS</h2>
+  <p class="lead" style="margin-bottom:16px">Ordena los nódulos según su <em>riesgo de malignidad</em> y dice desde qué tamaño suele indicarse biopsia.</p>
+  <div class="card">
+    <div class="thead"><div>Categoría</div><div>Riesgo estimado</div><div></div><div>Biopsia si mide</div></div>
+    <div class="tir"><div class="cl" style="color:var(--green)">EU-TIRADS 2</div><div class="bar"><span style="left:0;width:2%;background:var(--green)"></span></div><b class="pct" style="color:var(--green)">≈ 0 %</b><div class="bx">No habitual</div></div>
+    <div class="tir"><div class="cl" style="color:var(--yellow)">EU-TIRADS 3</div><div class="bar"><span style="left:2%;width:2.5%;background:var(--yellow);box-shadow:0 0 0 2px var(--yellow)"></span></div><b class="pct" style="color:var(--yellow)">2–4 %</b><div class="bx"><b>&gt; 20 mm</b></div></div>
+    <div class="tir"><div class="cl" style="color:var(--orange)">EU-TIRADS 4</div><div class="bar"><span style="left:6%;width:11%;background:var(--orange)"></span></div><b class="pct" style="color:var(--orange)">6–17 %</b><div class="bx"><b>&gt; 15 mm</b></div></div>
+    <div class="tir"><div class="cl" style="color:var(--pink)">EU-TIRADS 5</div><div class="bar"><span style="left:26%;width:61%;background:linear-gradient(90deg,var(--orange),var(--pink))"></span></div><b class="pct" style="color:var(--pink)">26–87 %</b><div class="bx"><b>&gt; 10 mm</b></div></div>
+    <p class="note">Fuente: European Thyroid Association, 2023. Las indicaciones pueden cambiar si hay ganglios sospechosos u otros factores clínicos.</p>
+  </div>
+</section>
+
+</div></div><div class="foot"><span><b>SALUD EXPLICADA</b> · NÓDULOS TIROIDEOS</span><div class="dots"><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div><span>4/7</span></div></div>
+<div class="slide s5"><div class="inner"><div class="z" style="zoom:1.35;width:794.1px"><!-- EXÁMENES -->
+<section class="sec">
+  <h2 class="h2 gr">¿Qué exámenes se hacen?</h2>
+  <div class="exams">
+    <div class="card">
+      <div class="step"><div class="num" style="background:var(--blue)">1</div><div><h5>TSH</h5><p>Evalúa cómo funciona la tiroides.</p></div></div>
+      <div class="step"><div class="num" style="background:var(--blue)">2</div><div><h5>T4 libre</h5><p>Si la TSH está alterada.</p></div></div>
+      <div class="step"><div class="num" style="background:var(--cyan)">3</div><div><h5>Anticuerpos anti-TPO</h5><p>Si se sospecha tiroiditis autoinmunitaria.</p></div></div>
+      <div class="step"><div class="num" style="background:var(--green)">4</div><div><h5>Ecografía tiroidea y cervical</h5><p>Tamaño, composición y presencia de ganglios.</p></div></div>
+      <div class="step"><div class="num" style="background:var(--yellow)">5</div><div><h5>Punción con aguja fina (PAAF)</h5><p>Según riesgo ecográfico, tamaño y contexto clínico.</p></div></div>
+      <div class="step"><div class="num" style="background:var(--pink)">6</div><div><h5>Gammagrafía tiroidea</h5><p>Sobre todo si la TSH está baja, para ver nódulos hiperfuncionantes.</p></div></div>
+    </div>
+    <div>
+      <div class="ph"><img src="img/eco.png" alt="Ecografía tiroidea"><span class="cap">Ecografía tiroidea</span></div>
+      <div class="ph"><img src="img/paaf.png" alt="Punción aspiración con aguja fina"><span class="cap">PAAF</span></div>
+    </div>
+  </div>
+</section>
+
+</div></div><div class="foot"><span><b>SALUD EXPLICADA</b> · NÓDULOS TIROIDEOS</span><div class="dots"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i></div><span>5/7</span></div></div>
+<div class="slide s6"><div class="inner"><div class="z" style="zoom:1.4;width:765.7px"><!-- BETHESDA -->
+<section class="sec">
+  <h2 class="h2">Resultados de la biopsia</h2>
+  <p class="lead">La citología se clasifica con el <i>sistema Bethesda</i>.</p>
+  <table class="beth">
+    <tr><th>Categoría</th><th>Riesgo de malignidad</th><th>Conducta general</th></tr>
+    <tr style="--c:#8f97c2"><td><span class="roman">I</span>No diagnóstica</td><td class="r">1–4 %</td><td>Repetir PAAF</td></tr>
+    <tr style="--c:var(--green)"><td><span class="roman">II</span>Benigna</td><td class="r">0–3 %</td><td>Vigilancia</td></tr>
+    <tr style="--c:var(--yellow)"><td><span class="roman">III</span>Atipia indeterminada (AUS/FLUS)</td><td class="r">5–15 %</td><td>Vigilancia o pruebas moleculares</td></tr>
+    <tr style="--c:var(--orange)"><td><span class="roman">IV</span>Neoplasia folicular o sospechosa</td><td class="r">15–30 %</td><td>Cirugía (lobectomía)</td></tr>
+    <tr style="--c:#ff7a8a"><td><span class="roman">V</span>Sospechosa de malignidad</td><td class="r">60–75 %</td><td>Cirugía</td></tr>
+    <tr style="--c:var(--pink)"><td><span class="roman">VI</span>Maligna</td><td class="r">97–99 %</td><td>Tratamiento definitivo</td></tr>
+  </table>
+</section>
+
+</div></div><div class="foot"><span><b>SALUD EXPLICADA</b> · NÓDULOS TIROIDEOS</span><div class="dots"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i></div><span>6/7</span></div></div>
+<div class="slide s7"><div class="inner"><div class="z" style="zoom:1.12;width:957.1px"><!-- DESAPARECER + IMPORTANTE -->
+<section class="sec grid2">
+  <div class="card bl">
+    <h3 style="color:var(--blue)">¿Pueden desaparecer?</h3>
+    <ul class="blist">
+      <li>Algunos quísticos <b>disminuyen solos</b>.</li>
+      <li>Muchos benignos se mantienen <b>estables durante años</b>.</li>
+      <li>Si dan síntomas, existe la <b>ablación térmica</b> o con etanol.</li>
+      <li><b>Cirugía</b> si hay sospecha alta, cáncer o compresión.</li>
+    </ul>
+  </div>
+  <div class="card pk" style="--dot:var(--pink)">
+    <h3 style="color:var(--pink)">Importante</h3>
+    <ul class="blist">
+      <li>Tener un nódulo <b>no significa cáncer</b>.</li>
+      <li>TSH y T4 normales <b>no descartan</b> cáncer de tiroides.</li>
+      <li><b>No</b> tomes yodo, hormonas tiroideas ni productos “para eliminar nódulos” sin indicación médica.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ALARMA -->
+<section class="sec">
+  <h2 class="h2 pk">Signos de alarma</h2>
+  <div class="card alarm">
+    <div class="al"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ff5fa8"/><path d="M18 24 Q30 14 42 24 M16 32 Q30 22 44 32 M20 40 Q30 32 40 40" stroke="#0f1430" stroke-width="4" fill="none" stroke-linecap="round"/></svg><p>Ronquera<br>persistente</p></div>
+    <div class="al"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ff9a3c"/><path d="M30 44 V16 M20 26 L30 16 L40 26" stroke="#0f1430" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><p>Masa en el cuello<br>que crece rápido</p></div>
+    <div class="al"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ffd23f"/><path d="M24 12 V30 Q24 40 30 40 Q36 40 36 30 V12" stroke="#0f1430" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="30" cy="48" r="3.5" fill="#0f1430"/></svg><p>Dificultad<br>para tragar</p></div>
+    <div class="al"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ff4d6d"/><path d="M14 24 H38 Q46 24 44 17 M14 32 H44 Q52 32 50 40 M14 40 H32" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/></svg><p>Dificultad<br>para respirar</p></div>
+  </div>
+  <div class="urg"><div class="ex">!</div><p>Si te cuesta <b>respirar</b>, es una <b>urgencia médica</b>. Ante una masa que crece rápido o ronquera que no se va, consulta pronto.</p></div>
+</section>
+
+<p class="close">Un nódulo <span>no es un diagnóstico</span>: es una razón para evaluarlo bien.</p>
+<p class="src"><b>Fuentes:</b> European Thyroid Association (2023), Clinical Practice Guidelines for Thyroid Nodule Management · American Thyroid Association, Fine Needle Aspiration Biopsy of Thyroid Nodules · Endocrine Society, Thyroid Nodules.<br>Información educativa. No reemplaza la consulta con tu médico.</p>
+
+</div></div><div class="foot"><span><b>SALUD EXPLICADA</b> · NÓDULOS TIROIDEOS</span><div class="dots"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i></div><span>7/7</span></div></div>
+</body></html>
