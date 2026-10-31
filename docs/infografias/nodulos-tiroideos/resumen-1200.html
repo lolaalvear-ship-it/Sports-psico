@@ -122,8 +122,31 @@ h1 .p{color:var(--pink);display:block}
 .src{font-size:14px;color:var(--dim);margin-top:22px;line-height:1.5;text-align:center}
 .src b{color:var(--mut)}
 
-.sq{width:1200px;height:1200px;padding:52px 56px 34px;display:flex;flex-direction:column;overflow:hidden;
- background:radial-gradient(900px 500px at 90% 0%,rgba(255,95,168,.16),transparent 60%),radial-gradient(700px 600px at 0% 70%,rgba(91,140,255,.12),transparent 60%),var(--bg)}
+.sq{width:1200px;height:1200px;padding:46px 56px 30px;display:flex;flex-direction:column;overflow:hidden;
+ background:radial-gradient(520px 420px at 92% 6%,rgba(255,95,168,.38),transparent 70%),
+ radial-gradient(520px 420px at 4% 48%,rgba(95,224,208,.22),transparent 70%),
+ radial-gradient(600px 420px at 100% 70%,rgba(162,89,255,.30),transparent 70%),
+ radial-gradient(560px 380px at 10% 100%,rgba(255,154,60,.22),transparent 70%),
+ radial-gradient(500px 360px at 55% 35%,rgba(91,140,255,.18),transparent 70%),#120f35}
+.grad{background:linear-gradient(90deg,#ff5fa8,#ff9a3c 55%,#ffd23f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.head{display:grid;grid-template-columns:1fr 400px;gap:28px;align-items:center}
+.thy{position:relative;border-radius:26px;padding:4px;background:linear-gradient(135deg,#ff5fa8,#a259ff 45%,#5fe0d0)}
+.thy img{display:block;width:100%;border-radius:22px}
+.pill{position:absolute;font-weight:900;font-size:16px;color:#fff;padding:7px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.35);white-space:nowrap}
+.pill.a{left:5%;top:44%;background:#ff5fa8}
+.pill.b{right:2%;top:52%;text-align:center;line-height:1.1;padding:8px 14px 8px 24px;background:#ff9a3c;color:#1a1033}
+.pill.a::after{content:"";position:absolute;right:-30px;top:50%;width:30px;height:3px;background:#ff5fa8}
+.pill.b::before{content:"";position:absolute;left:-30px;top:40%;width:30px;height:3px;background:#ff9a3c}
+.types .ty{border-radius:20px;padding:10px 10px 12px;border:2px solid var(--c);background:linear-gradient(180deg,color-mix(in srgb,var(--c) 28%,transparent),rgba(26,33,73,.6))}
+.types .ty .us{border:0;border-radius:14px}
+.ty h4{color:var(--c)!important}
+.card.ctir{border:2px solid var(--yellow);background:linear-gradient(160deg,rgba(255,210,63,.20),rgba(91,140,255,.16) 60%,rgba(26,33,73,.85))}
+.card.alr{border:2px solid var(--pink);background:linear-gradient(160deg,rgba(255,95,168,.26),rgba(162,89,255,.22) 60%,rgba(26,33,73,.85))}
+.sq .stat{background:linear-gradient(120deg,#ff5fa8,#a259ff);border:0;margin-top:20px;width:auto;display:inline-flex}
+.sq .stat .n{color:#fff}.sq .stat .t{color:#ffe3f1}
+.chips{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.chip{font-weight:800;font-size:16px;padding:7px 14px;border-radius:999px;color:#120f35}
+
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
 .sq h1{font-size:84px;margin-top:16px}
 .sq .sub{font-size:23px;margin-top:12px}
@@ -137,7 +160,7 @@ h1 .p{color:var(--pink);display:block}
 .lbl{font-size:19px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin:22px 0 12px}
 .lbl::before{content:"";width:5px;height:24px;border-radius:3px;background:var(--bar,var(--blue))}
 .types{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.types .us img{aspect-ratio:1/0.92;object-fit:cover;object-position:top}
+.types .us img{aspect-ratio:1/0.62;object-fit:cover;object-position:top}
 .types .t2{display:flex;align-items:baseline;gap:10px;margin-top:8px}
 .types h4{font-size:21px;font-weight:900}
 .types p{font-size:15px;color:var(--mut)}
@@ -160,27 +183,26 @@ h1 .p{color:var(--pink);display:block}
 .fsrc{font-size:13px;color:var(--dim);margin-top:14px;text-align:center}
 </style></head><body>
 <div class="sq">
- <div class="top">
+ <div class="head">
   <div>
    <span class="kicker">SALUD EXPLICADA</span>
-   <h1>Nódulos <span class="p" style="display:inline">tiroideos</span></h1>
-   <p class="sub">Muy comunes, casi siempre <b>benignos</b>. La clave es saber cuáles vigilar.</p>
+   <h1 style="font-size:80px;margin-top:14px">Nódulos<br><span class="grad">tiroideos</span></h1>
+   <p class="que" style="margin-top:14px">Un <em>crecimiento localizado</em> en la glándula tiroides, la “mariposa” del cuello.</p>
+   <div class="chips"><span class="chip" style="background:var(--blue)">4–7 % se palpan</span><span class="chip" style="background:var(--cyan)">más por ecografía</span><span class="chip" style="background:var(--yellow)">mujeres y edad</span></div>
+   <div class="stat"><div class="n">+90 %</div><div class="t"><b style="color:#fff">son benignos.</b><br>Solo una minoría es cáncer.</div></div>
   </div>
-  <div class="right">
-   <div class="stat"><div class="n">+90 %</div><div class="t"><b>son benignos.</b> Solo una minoría es cáncer de tiroides.</div></div>
-  </div>
+  <div class="thy"><img src="img/tiroides.png" alt="Ilustración de la tiroides con un nódulo"><span class="pill a">Tiroides</span><span class="pill b">Nódulo<br>tiroideo</span></div>
  </div>
- <p class="que" style="margin-top:14px">Un <em>crecimiento localizado</em> en la glándula tiroides. Se palpa en el <b style="color:#fff">4–7 %</b> de los adultos y la ecografía detecta muchos más, sobre todo en <b style="color:#fff">mujeres</b> y con la <b style="color:#fff">edad</b>.</p>
 
  <div class="lbl" style="--bar:var(--cyan)">Tipos según su composición</div>
  <div class="types">
-  <div><div class="us"><img src="img/solido.png" alt="Ecografía de nódulo sólido"></div><div class="t2"><h4 style="color:#d6dbe6">Sólido</h4><p>tejido tiroideo</p></div></div>
-  <div><div class="us"><img src="img/quistico.png" alt="Ecografía de nódulo quístico"></div><div class="t2"><h4 style="color:var(--blue)">Quístico</h4><p>contiene líquido</p></div></div>
-  <div><div class="us"><img src="img/mixto.png" alt="Ecografía de nódulo mixto"></div><div class="t2"><h4 style="color:var(--orange)">Mixto</h4><p>sólido + líquido</p></div></div>
+  <div class="ty" style="--c:#c9d2ea"><div class="us"><img src="img/solido.png" alt="Ecografía de nódulo sólido"></div><div class="t2"><h4 style="color:#d6dbe6">Sólido</h4><p>tejido tiroideo</p></div></div>
+  <div class="ty" style="--c:#5b8cff"><div class="us"><img src="img/quistico.png" alt="Ecografía de nódulo quístico"></div><div class="t2"><h4 style="color:var(--blue)">Quístico</h4><p>contiene líquido</p></div></div>
+  <div class="ty" style="--c:#ff9a3c"><div class="us"><img src="img/mixto.png" alt="Ecografía de nódulo mixto"></div><div class="t2"><h4 style="color:var(--orange)">Mixto</h4><p>sólido + líquido</p></div></div>
  </div>
 
  <div class="bottom" style="margin-top:18px">
-  <div class="card">
+  <div class="card ctir">
    <div class="lbl" style="--bar:var(--yellow);margin-top:0">EU-TIRADS · riesgo</div>
    <div class="mh"><div>Categoría</div><div>Riesgo</div><div></div><div>Biopsia si</div></div>
    <div class="mt"><div class="cl" style="color:var(--green)">TIRADS 2</div><div class="bar"><span style="left:0;width:2%;background:var(--green)"></span></div><div class="pct" style="color:var(--green)">≈ 0 %</div><div class="bx">No habitual</div></div>
@@ -188,7 +210,7 @@ h1 .p{color:var(--pink);display:block}
    <div class="mt"><div class="cl" style="color:var(--orange)">TIRADS 4</div><div class="bar"><span style="left:6%;width:11%;background:var(--orange)"></span></div><div class="pct" style="color:var(--orange)">6–17 %</div><div class="bx"><b>&gt; 15 mm</b></div></div>
    <div class="mt"><div class="cl" style="color:var(--pink)">TIRADS 5</div><div class="bar"><span style="left:26%;width:61%;background:linear-gradient(90deg,var(--orange),var(--pink))"></span></div><div class="pct" style="color:var(--pink)">26–87 %</div><div class="bx"><b>&gt; 10 mm</b></div></div>
   </div>
-  <div class="card pk">
+  <div class="card alr">
    <div class="lbl" style="--bar:var(--pink);margin-top:0">Signos de alarma</div>
    <div class="al2"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ff5fa8"/><path d="M18 24 Q30 14 42 24 M16 32 Q30 22 44 32 M20 40 Q30 32 40 40" stroke="#0f1430" stroke-width="4" fill="none" stroke-linecap="round"/></svg><p>Ronquera persistente</p></div>
    <div class="al2"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ff9a3c"/><path d="M30 44 V16 M20 26 L30 16 L40 26" stroke="#0f1430" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><p>Masa que crece rápido</p></div>
