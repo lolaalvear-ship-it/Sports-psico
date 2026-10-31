@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Nódulos tiroideos · resumen</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{
+  --bg:#0f1430; --bg2:#151b3d; --card:#1a2149; --card2:#202858;
+  --line:#2c3670; --txt:#ffffff; --mut:#b9c0e0; --dim:#8f97c2;
+  --pink:#ff5fa8; --blue:#5b8cff; --cyan:#5fe0d0; --green:#b8f36b; --yellow:#ffd23f; --orange:#ff9a3c; --red:#ff4d6d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.page{width:1080px;margin:0 auto;padding:56px 56px 40px;
+  background:radial-gradient(900px 500px at 85% 0%,rgba(255,95,168,.14),transparent 60%),
+             radial-gradient(700px 500px at 0% 40%,rgba(91,140,255,.10),transparent 60%),var(--bg)}
+.kicker{display:inline-block;color:var(--pink);border:2px solid var(--pink);border-radius:999px;padding:6px 16px;font-weight:800;letter-spacing:.14em;font-size:17px}
+h1{font-size:104px;line-height:.92;font-weight:900;letter-spacing:-.03em;margin-top:22px}
+h1 .p{color:var(--pink);display:block}
+.sub{font-size:27px;color:var(--mut);margin-top:16px;font-weight:500}
+.sub b{color:var(--pink)}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+.stat{border:2px solid rgba(255,95,168,.55);background:var(--card);border-radius:22px;padding:18px 22px;display:flex;align-items:center;gap:16px;width:360px;margin-bottom:8px}
+.stat .n{white-space:nowrap;font-size:52px;font-weight:900;color:var(--pink);line-height:1}
+.stat .t{font-size:17px;color:var(--mut);line-height:1.3}
+.stat .t b{color:#fff}
+.gland{width:190px;flex:none}
+
+.sec{margin-top:44px}
+.h2{display:flex;align-items:center;gap:14px;font-size:30px;font-weight:900;letter-spacing:.01em;text-transform:uppercase;margin-bottom:18px}
+.h2::before{content:"";width:6px;height:34px;border-radius:4px;background:var(--bar,var(--blue))}
+.h2.pk{--bar:var(--pink)} .h2.gr{--bar:var(--green)} .h2.yl{--bar:var(--yellow)} .h2.cy{--bar:var(--cyan)}
+.lead{font-size:21px;color:var(--mut);line-height:1.45}
+.lead em{font-style:normal;color:var(--pink);font-weight:600}
+.lead i{font-style:normal;color:var(--blue);font-weight:600}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border-radius:22px;padding:22px;border:1.5px solid var(--line)}
+.card.pk{border-color:rgba(255,95,168,.6)} .card.bl{border-color:rgba(91,140,255,.6)} .card.gr{border-color:rgba(184,243,107,.55)}
+
+/* frequency */
+.freq{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+.fq{background:var(--card);border-radius:22px;padding:20px 22px;border:1.5px solid var(--line)}
+.fq .big{font-size:46px;font-weight:900;line-height:1}
+.fq .lb{font-size:17px;color:var(--mut);margin-top:8px;line-height:1.35}
+.people{display:flex;gap:6px;margin-top:20px;align-items:flex-end}
+.people svg{width:34px;height:60px}
+
+/* causes */
+.tile{background:var(--card);border-radius:22px;padding:20px 16px 18px;text-align:center;border:1.5px solid var(--line)}
+.tile svg{width:68px;height:68px;margin-bottom:8px}
+.tile h4{font-size:21px;font-weight:800}
+.tile p{font-size:15.5px;color:var(--mut);margin-top:4px;line-height:1.3}
+.risk{margin-top:18px;display:flex;gap:18px;align-items:center;background:linear-gradient(90deg,rgba(255,95,168,.16),rgba(255,95,168,.04));border:2px solid var(--pink);border-radius:22px;padding:18px 22px}
+.risk svg{width:54px;height:54px;flex:none}
+.risk p{font-size:19px;line-height:1.4;color:var(--mut)} .risk b{color:var(--pink)}
+
+/* types */
+.us{border-radius:16px;overflow:hidden;background:#e8edf5;border:3px solid var(--line)}
+.us img{display:block;width:100%}
+.type .us img{aspect-ratio:1/1;object-fit:cover;object-position:top}
+.type h4{font-size:24px;font-weight:900;margin-top:14px}
+.type p{font-size:17px;color:var(--mut);margin-top:4px}
+.type.a h4{color:#d6dbe6} .type.b h4{color:var(--blue)} .type.c h4{color:var(--orange)}
+
+/* suspicion */
+.sus{display:flex;gap:18px;align-items:center}
+.sus .us{width:170px;flex:none;background:#000}
+.sus h4{font-size:22px;font-weight:900;margin-bottom:10px}
+.sus ul{list-style:none}
+.sus li{font-size:18px;line-height:1.35;padding-left:20px;position:relative;margin:6px 0;color:#e7eaf7}
+.sus li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:50%;background:var(--dot)}
+.sus.ok{--dot:var(--green)} .sus.ok h4{color:var(--green)}
+.sus.bad{--dot:var(--pink)} .sus.bad h4{color:var(--pink)}
+.tag{display:inline-block;font-size:14px;font-weight:800;letter-spacing:.1em;padding:4px 12px;border-radius:999px;margin-bottom:10px}
+.tag.ok{background:rgba(184,243,107,.15);color:var(--green)} .tag.bad{background:rgba(255,95,168,.15);color:var(--pink)}
+
+/* tirads */
+.tir{display:grid;grid-template-columns:150px 1fr 90px 150px;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.tir:last-child{border-bottom:0}
+.tir .cl{font-size:22px;font-weight:900}
+.tir .bar{height:30px;background:#0c1029;border-radius:999px;position:relative;overflow:hidden}
+.tir .bar span{position:absolute;top:0;height:100%;border-radius:999px}
+.tir .pct{font-weight:900;font-size:19px;text-align:right}
+.tir .bx{font-size:17px;color:var(--mut);text-align:right} .tir .bx b{color:#fff;font-size:21px}
+.thead{display:grid;grid-template-columns:150px 1fr 90px 150px;gap:14px;font-size:14px;font-weight:800;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.thead div:last-child{text-align:right}
+.note{font-size:15px;color:var(--dim);margin-top:12px}
+
+/* exams */
+.exams{display:grid;grid-template-columns:1fr 300px;gap:18px}
+.step{display:flex;gap:14px;align-items:flex-start;padding:10px 0}
+.step .num{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:900;font-size:18px;color:#0f1430}
+.step h5{font-size:20px;font-weight:800}
+.step p{font-size:16.5px;color:var(--mut);line-height:1.35;margin-top:2px}
+.ph{border-radius:18px;overflow:hidden;border:2px solid var(--line);position:relative}
+.ph img{display:block;width:100%}
+.ph .cap{position:absolute;left:10px;bottom:10px;background:rgba(15,20,48,.88);color:#fff;font-weight:700;font-size:15px;padding:6px 12px;border-radius:999px}
+.ph + .ph{margin-top:14px}
+
+/* bethesda */
+.beth{width:100%;border-collapse:separate;border-spacing:0 8px}
+.beth th{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0 14px;font-weight:800}
+.beth td{background:var(--card);padding:13px 14px;font-size:17.5px}
+.beth td:first-child{border-radius:14px 0 0 14px;border-left:5px solid var(--c);font-weight:700}
+.beth td:last-child{border-radius:0 14px 14px 0;color:var(--mut)}
+.beth td.r{font-weight:900;color:var(--c);font-size:19px;white-space:nowrap}
+.beth .roman{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--c);color:#0f1430;font-weight:900;margin-right:10px;font-size:15px}
+
+/* bottom */
+.blist{list-style:none}
+.blist li{font-size:17.5px;line-height:1.4;padding-left:20px;position:relative;margin:8px 0;color:#e2e6f6}
+.blist li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:50%;background:var(--dot,var(--blue))}
+.card h3{font-size:24px;font-weight:900;margin-bottom:8px}
+.alarm{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px}
+.al{text-align:center}
+.al svg{width:60px;height:60px}
+.al p{font-size:16px;font-weight:700;margin-top:6px;line-height:1.25}
+.urg{margin-top:44px;display:flex;align-items:center;gap:20px;border:2px solid var(--pink);background:var(--card);border-radius:24px;padding:20px 24px}
+.urg .ex{width:58px;height:58px;border-radius:50%;background:var(--pink);display:grid;place-items:center;font-weight:900;font-size:34px;flex:none}
+.urg p{font-size:20px;line-height:1.4;color:#e7eaf7} .urg b{color:var(--pink)}
+.close{text-align:center;font-size:27px;font-weight:800;margin-top:36px}
+.close span{color:var(--pink)}
+.src{font-size:14px;color:var(--dim);margin-top:22px;line-height:1.5;text-align:center}
+.src b{color:var(--mut)}
+
+.sq{width:1200px;height:1200px;padding:52px 56px 34px;display:flex;flex-direction:column;overflow:hidden;
+ background:radial-gradient(900px 500px at 90% 0%,rgba(255,95,168,.16),transparent 60%),radial-gradient(700px 600px at 0% 70%,rgba(91,140,255,.12),transparent 60%),var(--bg)}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+.sq h1{font-size:84px;margin-top:16px}
+.sq .sub{font-size:23px;margin-top:12px}
+.sq .stat{width:330px;margin:0;padding:16px 20px}
+.sq .stat .n{font-size:46px}
+.sq .stat .t{font-size:16px}
+.right{display:flex;flex-direction:column;align-items:flex-end;gap:14px;margin-top:6px}
+.right .gland{width:120px}
+.que{margin-top:22px;font-size:20px;color:var(--mut);line-height:1.4}
+.que em{font-style:normal;color:var(--pink);font-weight:700}
+.lbl{font-size:19px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin:22px 0 12px}
+.lbl::before{content:"";width:5px;height:24px;border-radius:3px;background:var(--bar,var(--blue))}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.types .us img{aspect-ratio:1/0.92;object-fit:cover;object-position:top}
+.types .t2{display:flex;align-items:baseline;gap:10px;margin-top:8px}
+.types h4{font-size:21px;font-weight:900}
+.types p{font-size:15px;color:var(--mut)}
+.bottom{display:grid;grid-template-columns:1.25fr 1fr;gap:18px;flex:1;min-height:0}
+.bottom .card{padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between}
+.mt{display:grid;grid-template-columns:120px 1fr 72px 92px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}
+.mt:last-child{border:0}
+.mt .cl{font-size:18px;font-weight:900}
+.mt .bar{height:20px;background:#0c1029;border-radius:999px;position:relative;overflow:hidden}
+.mt .bar span{position:absolute;top:0;height:100%;border-radius:999px}
+.mt .pct{font-weight:900;font-size:17px;text-align:right}
+.mt .bx{font-size:15px;color:var(--mut);text-align:right}.mt .bx b{color:#fff;font-size:18px}
+.mh{display:grid;grid-template-columns:120px 1fr 72px 92px;gap:10px;font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.mh div:last-child{text-align:right}
+.al2{display:flex;align-items:center;gap:14px;padding:3px 0}
+.al2 svg{width:36px;height:36px;flex:none}
+.al2 p{font-size:17px;font-weight:700}
+.urg2{margin-top:10px;background:rgba(255,95,168,.12);border:2px solid var(--pink);border-radius:16px;padding:10px 14px;font-size:16px;color:#e7eaf7;line-height:1.35}
+.urg2 b{color:var(--pink)}
+.fsrc{font-size:13px;color:var(--dim);margin-top:14px;text-align:center}
+</style></head><body>
+<div class="sq">
+ <div class="top">
+  <div>
+   <span class="kicker">SALUD EXPLICADA</span>
+   <h1>Nódulos <span class="p" style="display:inline">tiroideos</span></h1>
+   <p class="sub">Muy comunes, casi siempre <b>benignos</b>. La clave es saber cuáles vigilar.</p>
+  </div>
+  <div class="right">
+   <div class="stat"><div class="n">+90 %</div><div class="t"><b>son benignos.</b> Solo una minoría es cáncer de tiroides.</div></div>
+  </div>
+ </div>
+ <p class="que" style="margin-top:14px">Un <em>crecimiento localizado</em> en la glándula tiroides. Se palpa en el <b style="color:#fff">4–7 %</b> de los adultos y la ecografía detecta muchos más, sobre todo en <b style="color:#fff">mujeres</b> y con la <b style="color:#fff">edad</b>.</p>
+
+ <div class="lbl" style="--bar:var(--cyan)">Tipos según su composición</div>
+ <div class="types">
+  <div><div class="us"><img src="img/solido.png" alt="Ecografía de nódulo sólido"></div><div class="t2"><h4 style="color:#d6dbe6">Sólido</h4><p>tejido tiroideo</p></div></div>
+  <div><div class="us"><img src="img/quistico.png" alt="Ecografía de nódulo quístico"></div><div class="t2"><h4 style="color:var(--blue)">Quístico</h4><p>contiene líquido</p></div></div>
+  <div><div class="us"><img src="img/mixto.png" alt="Ecografía de nódulo mixto"></div><div class="t2"><h4 style="color:var(--orange)">Mixto</h4><p>sólido + líquido</p></div></div>
+ </div>
+
+ <div class="bottom" style="margin-top:18px">
+  <div class="card">
+   <div class="lbl" style="--bar:var(--yellow);margin-top:0">EU-TIRADS · riesgo</div>
+   <div class="mh"><div>Categoría</div><div>Riesgo</div><div></div><div>Biopsia si</div></div>
+   <div class="mt"><div class="cl" style="color:var(--green)">TIRADS 2</div><div class="bar"><span style="left:0;width:2%;background:var(--green)"></span></div><div class="pct" style="color:var(--green)">≈ 0 %</div><div class="bx">No habitual</div></div>
+   <div class="mt"><div class="cl" style="color:var(--yellow)">TIRADS 3</div><div class="bar"><span style="left:2%;width:3%;background:var(--yellow)"></span></div><div class="pct" style="color:var(--yellow)">2–4 %</div><div class="bx"><b>&gt; 20 mm</b></div></div>
+   <div class="mt"><div class="cl" style="color:var(--orange)">TIRADS 4</div><div class="bar"><span style="left:6%;width:11%;background:var(--orange)"></span></div><div class="pct" style="color:var(--orange)">6–17 %</div><div class="bx"><b>&gt; 15 mm</b></div></div>
+   <div class="mt"><div class="cl" style="color:var(--pink)">TIRADS 5</div><div class="bar"><span style="left:26%;width:61%;background:linear-gradient(90deg,var(--orange),var(--pink))"></span></div><div class="pct" style="color:var(--pink)">26–87 %</div><div class="bx"><b>&gt; 10 mm</b></div></div>
+  </div>
+  <div class="card pk">
+   <div class="lbl" style="--bar:var(--pink);margin-top:0">Signos de alarma</div>
+   <div class="al2"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ff5fa8"/><path d="M18 24 Q30 14 42 24 M16 32 Q30 22 44 32 M20 40 Q30 32 40 40" stroke="#0f1430" stroke-width="4" fill="none" stroke-linecap="round"/></svg><p>Ronquera persistente</p></div>
+   <div class="al2"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ff9a3c"/><path d="M30 44 V16 M20 26 L30 16 L40 26" stroke="#0f1430" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><p>Masa que crece rápido</p></div>
+   <div class="al2"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ffd23f"/><path d="M24 12 V30 Q24 40 30 40 Q36 40 36 30 V12" stroke="#0f1430" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="30" cy="48" r="3.5" fill="#0f1430"/></svg><p>Dificultad para tragar</p></div>
+   <div class="al2"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#ff4d6d"/><path d="M14 24 H38 Q46 24 44 17 M14 32 H44 Q52 32 50 40 M14 40 H32" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/></svg><p>Dificultad para respirar</p></div>
+   <div class="urg2">Si te cuesta respirar: <b>urgencia médica</b>.</div>
+  </div>
+ </div>
+ <p class="fsrc"><b style="color:var(--mut)">Fuentes:</b> European Thyroid Association (2023) · American Thyroid Association · Endocrine Society. Información educativa; no reemplaza la consulta médica.</p>
+</div>
+</body></html>
